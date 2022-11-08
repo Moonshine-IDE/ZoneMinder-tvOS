@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form name="Camera">
+  <actionbar bgcolor="#f0f0f0">
+    <actionbuttonstyle bgcolor="#f0f0f0"/>
+    <sharedactionref id="1"/>
+    <sharedactionref id="2"/>
+    <sharedactionref id="3"/>
+    <sharedactionref id="4"/>
+    <sharedactionref id="5"/>
+  </actionbar>
+  <body>
+    <richtext>
+      <par>Cameras</par>
+      <table>
+        <tablerow>
+          <tablecell>
+            <par>ID</par>
+          </tablecell>
+          <tablecell>
+            <par>
+              <field allowmultivalues="false" allowtabout="false" computeaftervalidation="false" dataconnectionfield="data" defaultfocus="false" kind="editable" name="CameraID" protected="false" showdelimiters="true" sign="false" storelocally="false" type="text" useappletinbrowser="false"/>
+            </par>
+          </tablecell>
+          <tablecell>
+            <par/>
+          </tablecell>
+        </tablerow>
+        <tablerow>
+          <tablecell>
+            <par>Name</par>
+          </tablecell>
+          <tablecell>
+            <par>
+              <field allowmultivalues="false" allowtabout="false" computeaftervalidation="false" dataconnectionfield="data" defaultfocus="false" kind="editable" name="Name" protected="false" showdelimiters="true" sign="false" storelocally="false" type="text" useappletinbrowser="false"/>
+            </par>
+          </tablecell>
+          <tablecell>
+            <par/>
+          </tablecell>
+        </tablerow>
+        <tablerow>
+          <tablecell>
+            <par>URL</par>
+          </tablecell>
+          <tablecell>
+            <par>
+              <field allowmultivalues="false" allowtabout="false" computeaftervalidation="false" dataconnectionfield="data" defaultfocus="false" kind="editable" name="URL" protected="false" showdelimiters="true" sign="false" storelocally="false" type="text" useappletinbrowser="false"/>
+            </par>
+          </tablecell>
+          <tablecell>
+            <par>Access URL for the camera</par>
+          </tablecell>
+        </tablerow>
+        <tablerow>
+          <tablecell>
+            <par>Frequency of Display</par>
+          </tablecell>
+          <tablecell>
+            <par>
+              <field allowmultivalues="false" allowtabout="false" computeaftervalidation="false" dataconnectionfield="data" defaultfocus="false" kind="editable" name="Frequency" protected="false" showdelimiters="true" sign="false" storelocally="false" type="text" useappletinbrowser="false"/>
+            </par>
+          </tablecell>
+          <tablecell>
+            <par/>
+          </tablecell>
+        </tablerow>
+        <tablerow>
+          <tablecell>
+            <par>Group</par>
+          </tablecell>
+          <tablecell>
+            <par>
+              <field allowmultivalues="false" allowtabout="false" computeaftervalidation="false" dataconnectionfield="data" defaultfocus="false" kind="editable" name="Group" protected="false" showdelimiters="true" sign="false" storelocally="false" type="text" useappletinbrowser="false"/>
+            </par>
+          </tablecell>
+          <tablecell>
+            <par/>
+          </tablecell>
+        </tablerow>
+        <tablerow>
+          <tablecell>
+            <par>SubGroup</par>
+          </tablecell>
+          <tablecell>
+            <par>
+              <field allowmultivalues="false" allowtabout="false" computeaftervalidation="false" dataconnectionfield="data" defaultfocus="false" kind="editable" name="SubGroup" protected="false" showdelimiters="true" sign="false" storelocally="false" type="text" useappletinbrowser="false"/>
+            </par>
+          </tablecell>
+          <tablecell>
+            <par/>
+          </tablecell>
+        </tablerow>
+        <tablerow>
+          <tablecell>
+            <par>Allowed TVs</par>
+          </tablecell>
+          <tablecell>
+            <par>
+              <field allowmultivalues="true" allowtabout="false" computeaftervalidation="false" dataconnectionfield="data" defaultfocus="false" kind="editable" listdisplayseparator="semicolon" listinputseparators="comma semicolon" name="AllowedTVs" protected="false" showdelimiters="true" sign="false" storelocally="false" type="text" useappletinbrowser="false"/>
+            </par>
+          </tablecell>
+          <tablecell>
+            <par>TODO:  we'll want to rethink the design for this.</par>
+          </tablecell>
+        </tablerow>
+      </table>
+    </richtext>
+  </body>
+</form>

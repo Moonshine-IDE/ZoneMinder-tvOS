@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view name="Cameras" bgcolor="white" headerbgcolor="white" marginbgcolor="white" showmargin="true">
+  <code event="selection">
+    <formula>SELECT Form='Camera'</formula>
+  </code>
+  <actionbar bgcolor="#f0f0f0">
+    <actionbuttonstyle bgcolor="#f0f0f0"/>
+    <action title="New Camera" icon="30">
+      <code event="click">
+        <formula>@Command([Compose]; "Camera")</formula>
+      </code>
+    </action>
+    <sharedactionref id="6"/>
+    <sharedactionref id="7"/>
+    <sharedactionref id="8"/>
+    <sharedactionref id="9"/>
+    <sharedactionref id="10"/>
+    <sharedactionref id="11"/>
+    <sharedactionref id="12"/>
+  </actionbar>
+  <column itemname="CameraID" sort="ascending" categorized="false" twisties="true" width="30">
+    <columnheader title="ID"/>
+  </column>
+  <column itemname="Name" sort="none" categorized="false" twisties="true" width="30">
+    <columnheader title="Name"/>
+  </column>
+  <column itemname="URL" sort="none" categorized="false" twisties="true" width="30">
+    <columnheader title="URL"/>
+  </column>
+  <column itemname="Frequency" sort="none" categorized="false" twisties="true" width="30">
+    <columnheader title="Frequency of Display"/>
+  </column>
+  <column itemname="Group" sort="none" categorized="false" twisties="true" width="30">
+    <columnheader title="Group"/>
+  </column>
+  <column itemname="SubGroup" sort="none" categorized="false" twisties="true" width="30">
+    <columnheader title="SubGroup"/>
+  </column>
+  <column itemname="AllowedTVs" sort="none" categorized="false" twisties="true" width="30">
+    <columnheader title="Allowed TVs"/>
+  </column>
+</view>

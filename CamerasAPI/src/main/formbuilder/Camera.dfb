@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <form hasWebAccess="false" name="Camera" dxlGeneratedOn="Wed Nov 2 21:47:10 2022 UTC">
+    <viewName><![CDATA[Cameras]]></viewName>
+    <fields>
+      <field name="CameraID" type="Text" editable="Editable" sortOption="Ascending" isMultiValue="false" isIncludeInView="true">
+        <label><![CDATA[ID]]></label>
+        <description><![CDATA[]]></description>
+        <formula><![CDATA[]]></formula>
+      </field>
+      <field name="Name" type="Text" editable="Editable" sortOption="No sorting" isMultiValue="false" isIncludeInView="true">
+        <label><![CDATA[Name]]></label>
+        <description><![CDATA[]]></description>
+        <formula><![CDATA[]]></formula>
+      </field>
+      <field name="URL" type="Text" editable="Editable" sortOption="No sorting" isMultiValue="false" isIncludeInView="true">
+        <label><![CDATA[URL]]></label>
+        <description><![CDATA[Access URL for the camera]]></description>
+        <formula><![CDATA[]]></formula>
+      </field>
+      <field name="Frequency" type="Text" editable="Editable" sortOption="No sorting" isMultiValue="false" isIncludeInView="true">
+        <label><![CDATA[Frequency of Display]]></label>
+        <description><![CDATA[]]></description>
+        <formula><![CDATA[]]></formula>
+      </field>
+      <field name="Group" type="Text" editable="Editable" sortOption="No sorting" isMultiValue="false" isIncludeInView="true">
+        <label><![CDATA[Group]]></label>
+        <description><![CDATA[]]></description>
+        <formula><![CDATA[]]></formula>
+      </field>
+      <field name="SubGroup" type="Text" editable="Editable" sortOption="No sorting" isMultiValue="false" isIncludeInView="true">
+        <label><![CDATA[SubGroup]]></label>
+        <description><![CDATA[]]></description>
+        <formula><![CDATA[]]></formula>
+      </field>
+      <field name="AllowedTVs" type="Text" editable="Editable" sortOption="No sorting" isMultiValue="true" isIncludeInView="true">
+        <label><![CDATA[Allowed TVs]]></label>
+        <description><![CDATA[TODO:  we'll want to rethink the design for this.]]></description>
+        <formula><![CDATA[]]></formula>
+      </field>
+    </fields>
+  </form>
+</root>

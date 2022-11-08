@@ -1,0 +1,45 @@
+<project>
+  <classpaths>
+    <class path="src/main"/>
+  </classpaths>
+  <build>
+    <option additional=""/>
+    <option antBuildPath="build/build.xml"/>
+    <option linkReport=""/>
+  </build>
+  <mavenBuild>
+    <option commandLine="clean install"/>
+    <option dominoNotesPlatform=""/>
+    <option settingsFilePath="/Users/joelanderson/Downloads/MoonshineSDKs/Domino/settings.xml"/>
+    <option mavenBuildPath="/Users/joelanderson/Documents/Flex/workspace/Cameras"/>
+    <option dominoNotesProgram=""/>
+    <actions>
+      <action action="install" actionName="Build"/>
+      <action action="clean package" actionName="Clean and package"/>
+      <action action="clean" actionName="Clean"/>
+      <action action="clean install" actionName="Clean and Build"/>
+      <action action="war:exploded" actionName="Exploded"/>
+    </actions>
+  </mavenBuild>
+  <hiddenPaths>
+    <hidden path="visualeditor-src"/>
+    <hidden path="formbuilder-src"/>
+  </hiddenPaths>
+  <preBuildCommand>null</preBuildCommand>
+  <postBuildCommand alwaysRun="False">null</postBuildCommand>
+  <options>
+    <option showHiddenPaths="False"/>
+    <option jdkType="jdk-8"/>
+  </options>
+  <domino>
+    <option targetServer="demo/DEMO"/>
+    <option localDatabase="/Users/joelanderson/Documents/Flex/workspace/Cameras/nsfs/nsf-moonshine/target/nsf-moonshine-domino-1.0.0.nsf"/>
+    <option targetDatabase="Cameras.nsf"/>
+    <option dominoBaseAgentURL="http://127.0.0.1:8080/Cameras.nsf"/>
+  </domino>
+  <moonshineRunCustomization>
+    <option showHiddenPaths="False"/>
+    <option jdkType="jdk-8"/>
+  </moonshineRunCustomization>
+  <storage/>
+</project>
