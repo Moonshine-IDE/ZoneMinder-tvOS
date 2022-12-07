@@ -1,0 +1,243 @@
+/*
+Build script for CamerasAPI_JavaAgents
+*/
+plugins {
+    id 'java'
+    //id 'application'  // allows 'run' task.
+    id 'eclipse'      // allows dependencies to be exported to .classpath
+    id 'groovy'
+}
+
+archivesBaseName='CamerasAPI_JavaAgents'
+
+String notesInstallation = project.findProperty('notesInstallation')
+if (!notesInstallation) {
+	throw new GradleException("Missing configured path for Notes installation.  Set notesInstallation in gradle.properties.")
+}
+else if (!(new File(notesInstallation).exists())) {
+	throw new GradleException("Invalid configured path for Notes installation ($notesInstallation).  Check notesInstallation in build.gradle.")
+}
+
+String notesJarExtDir = "$notesInstallation/jvm/lib/ext"
+String notesJarPath = "$notesJarExtDir/Notes.jar"
+// change envPath as needed
+if (notesInstallation.toLowerCase().startsWith('/applications/')) { // treat as macOS
+	if (!(new File(notesJarPath).exists())) {
+		// alternative location for macOS:  /Applications/HCL Notes.app/Contents/Resources/jvm/lib/ext/Notes.jar 
+		logger.info "Notes.jar not found at $notesJarPath"
+		notesJarExtDir = "$notesInstallation/../Resources/jvm/lib/ext"
+		notesJarPath = "$notesJarExtDir/Notes.jar"
+	}
+	if (!(new File(notesJarPath).exists())) {
+		logger.info "Notes.jar not found at $notesJarPath"
+		throw new GradleException("ERROR: Could not find Notes.jar")
+	}
+	logger.info("Notes JAR path:  $notesJarPath")
+}
+// no special logic for Windows
+
+repositories {
+    mavenCentral()
+}
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+    }
+}
+
+// Required for Java 8 Language server support
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+configurations {
+	// custom environment for DXL Importer
+	dxlRuntime.extendsFrom implementation
+}
+
+dependencies {
+    // CRUD API library
+    implementation files('lib/Moonshine-Domino-CRUD.jar')
+
+    // Local JAR dependency
+    implementation files(notesJarPath)
+
+    // DXL Importer
+    dxlRuntime files('dxlLib/ImportDxlNsf.jar')
+    
+    // Dependencies for DXL Importer
+    dxlRuntime 'org.tmatesoft.svnkit:svnkit:1.8.5'
+    dxlRuntime files("$notesJarExtDir/websvc.jar")
+}
+
+/*
+ * Update the logic to build a fat jar (excluding Notes.jar) for import into script library.
+ * This template will upload the JAR dependencies (only Moonshine-Domino-CRUD.jar) as separate script libraries, 
+ * which will allow the library to be updated separately from the agents.
+ * If you have additional dependencies to support, you can create more script libraries or enable the code below.
+ */
+//jar {
+//	from { 
+//		// runtimeClasspath includes implementation and runtimeOnly dependencies
+//		// findResults allows using null to exclude results
+//		configurations.runtimeClasspath.findResults { File dependency ->
+//			if (dependency.getName().equalsIgnoreCase("Notes.jar")) {
+//				return null  // skip this entry
+//			}
+//			else {
+//				return dependency.isDirectory() ? dependency : zipTree(dependency) 
+//			}
+//		} 
+//	}
+//}
+
+
+/* #### DXL Importer Configuration #### */
+
+
+/**
+ * Custom agent for running Java with Domino Dependencies
+ * Set environment variables based on NotesInstallation.
+ */
+class RunDomino extends JavaExec {
+	
+	public RunDomino() {
+		super()
+		classpath = project.sourceSets.main.runtimeClasspath
+		addDominoEnvironment()
+
+		// map STDERR to STDOUT to make the output more clear in Moonshine
+		errorOutput = System.out
+
+		String notesIDPassword = project.findProperty('notesIDPassword')
+		if (notesIDPassword) {
+			// pass the password by STDIN
+			// If there is a prompt for an invalid password, escape the prompt with Esc
+			standardInput = new java.io.StringBufferInputStream("${notesIDPassword}\n\u001B")
+		}
+		else {
+			// Send the Esc key to cancel any unexpected password prompts
+			standardInput = new java.io.StringBufferInputStream("\u001B")
+		}
+	}
+	
+	public addDominoEnvironment() {
+		String notesInstallation = project.findProperty('notesInstallation')
+		String envPath = System.getenv('PATH')
+		if (!envPath) {
+			logger.warn "Missing PATH environment variable."
+			envPath = ''  // default to empty string to avoid null errors later
+		}
+		
+		// change envPath as needed
+		if (notesInstallation.toLowerCase().startsWith('/applications/')) { // treat as macOS
+			// no special logic is required
+		}
+		else { // treat as Windows
+			// update PATH
+			envPath = "$envPath;$notesInstallation"
+		}
+		environment('DYLD_LIBRARY_PATH', notesInstallation)
+		environment('PATH', envPath)
+	}
+}
+
+/** 
+ * Custom Task Type for DXL Importer.
+ * Allows setting some of the JavaExec properties in a reusable task
+ * I based this on: https://www.baeldung.com/gradle-custom-task
+ */
+class ImportAgent extends RunDomino {
+	String propertiesFile
+	String type = 'agent' // "agent" or "scriptlibrary" - make this an enum?
+	String server = project.findProperty('server')
+	String dbName = project.findProperty('dbName')
+	
+	public ImportAgent() {
+		super()
+		classpath = project.configurations.dxlRuntime
+		main = 'com.Prominic.ImportDxlNsfForStatic'
+		
+	}
+	
+	@TaskAction
+	@Override
+	void exec() {
+		
+		// validation
+		if (!propertiesFile) {
+			throw new GradleException("No defined agent properties file.")
+		}
+		if (!server) {
+			throw new GradleException("No Domino server defined.  Use `-Pserver` or `gradle.properties`.")
+		}
+		if (!dbName) {
+			throw new GradleException("No Domino dbName defined.  Use `-PdbName` or `gradle.properties`.")
+		}
+		
+		// set args here so that it can use the configured properties
+		args '-a', propertiesFile?:'undefined', 
+		     '-t', this.type, 
+		     '-sp', project.findProperty('scriptLibraryConfig')?:'scriptLibraryConfig/ScriptLibraryConfig.properties', 
+		     '-b', '.', 
+		     '-s', server, 
+		     '-n', dbName
+		super.exec()
+		logger.warn 'NOTE:  You can ignore the SVNException error above.  This will be removed in a later version of DXLImporter'
+	}
+}
+
+task importAllScriptLibraries() {
+	// placeholder for dependencies generated by below code
+}
+
+task importAll(dependsOn: tasks.getByName('importAllScriptLibraries')) {
+	// placeholder for dependencies generated by below code
+}
+
+// TODO: generate tasks for the script libraries
+
+// generate tasks for agents
+String agentPropertiesDirName = project.findProperty('agentPropertiesDir') ?: 'agentProperties/'
+new File(agentPropertiesDirName).eachFileRecurse groovy.io.FileType.FILES, {File curFile ->
+	String fullName = curFile.getName()
+	int splitIndex = fullName.lastIndexOf('.')
+
+	if (splitIndex >= 0) {  // confirm this is a file with the expected format
+		String extension = fullName.substring(splitIndex+1)
+		String agentName = fullName.substring(0, splitIndex)
+		// treat any files in the "scriptbuild" directory as script libraries.  Improve this logic if needed.
+		boolean isScriptLibrary = (curFile.getAbsolutePath().toLowerCase().indexOf('scriptbuild') > 0) // default all other files to be agents
+
+		if (extension.equalsIgnoreCase('properties')) {
+			String importTaskName = "import$agentName"
+			String jarTaskName = "jar$agentName"
+			// if the custom jar task doesn't exist, default to base compile
+			jarTaskName = tasks.findByName(jarTaskName) ? jarTaskName : 'jar'
+
+			// don't override the existing task if it exists - allow this so that the user can define a custom override
+			if (!tasks.findByName(importTaskName)) {
+				tasks.create(name: importTaskName, type: ImportAgent, dependsOn: tasks.getByName(jarTaskName) ) {
+					propertiesFile = curFile.getAbsolutePath()
+					type = isScriptLibrary ? 'scriptlibrary' : 'agent'
+				}
+			}
+			// else:  the task already exists
+
+			// add a dependency on the importAll task
+			if (isScriptLibrary) {
+				tasks.getByName('importAllScriptLibraries').dependsOn << importTaskName
+			}
+			else {  // agent
+				tasks.getByName('importAll').dependsOn << importTaskName
+			}
+
+
+		}
+		else {
+			println "Ignoring invalid property file:  ${curFile.getAbsolutePath()}"
+		}
+	}
+}
+

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <form hasWebAccess="false" name="Camera" dxlGeneratedOn="Wed Nov 2 21:47:10 2022 UTC">
+  <form hasWebAccess="false" name="Camera" dxlGeneratedOn="Wed Nov 9 10:29:42 2022 UTC">
     <viewName><![CDATA[Cameras]]></viewName>
     <fields>
       <field name="CameraID" type="Text" editable="Editable" sortOption="Ascending" isMultiValue="false" isIncludeInView="true">

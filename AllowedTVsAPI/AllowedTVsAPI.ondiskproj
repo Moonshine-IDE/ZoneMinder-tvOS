@@ -1,0 +1,45 @@
+<project>
+  <classpaths>
+    <class path="src/main"/>
+  </classpaths>
+  <build>
+    <option linkReport=""/>
+    <option antBuildPath="build/build.xml"/>
+    <option additional=""/>
+  </build>
+  <mavenBuild>
+    <option settingsFilePath=""/>
+    <option commandLine="clean install"/>
+    <option mavenBuildPath="F:\DevareaLocal\Prominic\GIT\ZoneMinder-tvOS\AllowedTVsAPI"/>
+    <option dominoNotesProgram=""/>
+    <option dominoNotesPlatform=""/>
+    <actions>
+      <action actionName="Build" action="install"/>
+      <action actionName="Clean and package" action="clean package"/>
+      <action actionName="Clean" action="clean"/>
+      <action actionName="Clean and Build" action="clean install"/>
+      <action actionName="Exploded" action="war:exploded"/>
+    </actions>
+  </mavenBuild>
+  <hiddenPaths>
+    <hidden path="visualeditor-src"/>
+    <hidden path="formbuilder-src"/>
+  </hiddenPaths>
+  <preBuildCommand>null</preBuildCommand>
+  <postBuildCommand alwaysRun="False">null</postBuildCommand>
+  <options>
+    <option jdkType="jdk-8"/>
+    <option showHiddenPaths="False"/>
+  </options>
+  <domino>
+    <option targetServer="demo/DEMO"/>
+    <option localDatabase="F:\DevareaLocal\Prominic\GIT\ZoneMinder-tvOS\AllowedTVsAPI/nsfs/nsf-moonshine/target/nsf-moonshine-domino-1.0.0.nsf"/>
+    <option targetDatabase="AllowedTVsAPI.nsf"/>
+    <option dominoBaseAgentURL="http://127.0.0.1:8080/AllowedTVsAPI.nsf"/>
+  </domino>
+  <moonshineRunCustomization>
+    <option jdkType="jdk-8"/>
+    <option showHiddenPaths="False"/>
+  </moonshineRunCustomization>
+  <storage/>
+</project>

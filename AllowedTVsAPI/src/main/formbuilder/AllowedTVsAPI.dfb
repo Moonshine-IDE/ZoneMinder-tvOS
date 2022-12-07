@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <form hasWebAccess="false" name="AllowedTVs" dxlGeneratedOn="Wed Dec 7 05:39:55 2022 UTC">
+    <viewName><![CDATA[Allowed TVs]]></viewName>
+    <fields>
+      <field name="ID" type="Text" editable="Editable" sortOption="No sorting" isMultiValue="false" isIncludeInView="true">
+        <label><![CDATA[ID]]></label>
+        <description><![CDATA[AppleTV item ID]]></description>
+        <formula><![CDATA[]]></formula>
+      </field>
+      <field name="tvName" type="Text" editable="Editable" sortOption="Ascending" isMultiValue="false" isIncludeInView="true">
+        <label><![CDATA[Display Name]]></label>
+        <description><![CDATA[]]></description>
+        <formula><![CDATA[]]></formula>
+      </field>
+      <field name="availableCameras" type="Text" editable="Editable" sortOption="No sorting" isMultiValue="true" isIncludeInView="true">
+        <label><![CDATA[Camera List]]></label>
+        <description><![CDATA[Camera IDs available to the particular TV]]></description>
+        <formula><![CDATA[]]></formula>
+      </field>
+    </fields>
+  </form>
+</root>

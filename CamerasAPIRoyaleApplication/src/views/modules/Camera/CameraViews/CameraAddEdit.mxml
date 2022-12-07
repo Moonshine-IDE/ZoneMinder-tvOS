@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<j:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+		  xmlns:j="library://ns.apache.org/royale/jewel"
+		  xmlns:js="library://ns.apache.org/royale/basic" 
+		  xmlns:html="library://ns.apache.org/royale/html"
+		  xmlns:joditeditor="classes.joditeditor.*" xmlns:components="views.components.*"
+		  itemsVerticalAlign="itemsCenter" itemsHorizontalAlign="itemsCenter" className="bodyPadding"
+		  initComplete="onInitCompletes()">
+	<fx:Metadata>
+		[Event(name="eventNavigateTo", type="classes.events.ScreenEvent")]
+	</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			import classes.events.ScreenEvent;
+			import classes.events.ErrorEvent;
+            import org.apache.royale.jewel.Snackbar;
+            import org.apache.royale.events.Event;
+			import views.modules.Camera.CameraViews.CameraListing;
+import views.modules.Camera.CameraServices.CameraProxy;
+import views.modules.Camera.CameraVO.CameraVO;
+			
+			public static const NAME:String = "CameraAddEdit";
+
+			private var proxy:CameraProxy = CameraProxy.getInstance();
+
+			private function onInitCompletes():void
+            {
+                proxy.addEventListener(CameraProxy.EVENT_ITEM_SELECTED, onItemBeingSelected);
+                proxy.addEventListener(CameraProxy.EVENT_ITEM_UPDATED, onItemBeingUpdated);
+                proxy.addEventListener(ErrorEvent.SERVER_ERROR, onSubmitError);
+            }
+
+            private function onItemBeingSelected(event:Event):void
+            {
+                if (proxy.selectedItem != null)
+                {
+                    CameraID_id.text = proxy.selectedItem.CameraID;
+Name_id.text = proxy.selectedItem.Name;
+URL_id.text = proxy.selectedItem.URL;
+Frequency_id.text = proxy.selectedItem.Frequency;
+Group_id.text = proxy.selectedItem.Group;
+SubGroup_id.text = proxy.selectedItem.SubGroup;
+AllowedTVs_id.dataProvider = proxy.selectedItem.AllowedTVs;
+
+                }
+            }
+					
+			private function onBackRequest(event:MouseEvent):void
+			{
+			    reset();
+				dispatchEvent(new ScreenEvent(ScreenEvent.EVENT_NAVIGATE_TO, CameraListing.NAME));
+			}
+
+			private function onFormValid(event:Event):void
+            {
+                resetErrorMessage();
+
+                var submitObject:CameraVO = new CameraVO();
+submitObject.CameraID = CameraID_id.text;
+submitObject.Name = Name_id.text;
+submitObject.URL = URL_id.text;
+submitObject.Frequency = Frequency_id.text;
+submitObject.Group = Group_id.text;
+submitObject.SubGroup = SubGroup_id.text;
+submitObject.AllowedTVs = AllowedTVs_id.dataProvider;
+if (proxy.selectedItem) submitObject.DominoUniversalID = proxy.selectedItem.DominoUniversalID;
+proxy.submitItem(submitObject);
+
+            }
+
+            private function onItemBeingUpdated(event:Event):void
+            {
+                onBackRequest(null);
+            }
+
+            private function onSubmitError(event:ErrorEvent):void
+            {
+                lblError.visible = true;
+                lblError.text = event.errorMessage;
+                if (event.errors && (event.errors is Array))
+                {
+                    lblError.text += "\n";
+                    for (var i:int=0; i < event.errors.length; i++)
+                    {
+                        lblError.text += "\n"+ event.errors[i].message;
+                    }
+                }
+            }
+
+            private function reset():void
+            {
+                resetErrorMessage();
+
+                CameraID_id.text = null;
+Name_id.text = null;
+URL_id.text = null;
+Frequency_id.text = null;
+Group_id.text = null;
+SubGroup_id.text = null;
+AllowedTVs_id.dataProvider = null;
+
+            }
+
+            private function resetErrorMessage():void
+            {
+                lblError.text = null;
+                lblError.visible = false;
+            }
+			
+		]]>
+	</fx:Script>
+	<j:beads>
+		<js:ContainerDataBinding />
+	</j:beads>
+	
+	<html:H2 text="Add/Edit to Cameras"/>
+	
+	<js:HRule percentWidth="100"/>
+	<j:Spacer height="20"/>
+	
+	<j:Form valid="onFormValid(event)">
+		<j:beads>
+			<j:FormValidator id="formValidator" trigger="{btnSubmit}" triggerEvent="click" 
+							 requiredFieldError="At least one field has a validation error. Please correct the problem and submit again."/>
+		</j:beads>
+		<j:FormItem label="ID" required="false" className="horizontalContentShrinkFormItem" visible="true"><j:TextInput localId="CameraID_id" percentWidth="100"><j:beads></j:beads></j:TextInput></j:FormItem>
+<j:FormItem label="Name" required="false" className="horizontalContentShrinkFormItem" visible="true"><j:TextInput localId="Name_id" percentWidth="100"><j:beads></j:beads></j:TextInput></j:FormItem>
+<j:FormItem label="URL" required="false" className="horizontalContentShrinkFormItem" visible="true"><j:VGroup percentWidth="100">
+<j:TextInput localId="URL_id" percentWidth="100"><j:beads></j:beads></j:TextInput>
+<j:Label multiline="true" className="formFieldDescription" percentWidth="100"
+					text="Access URL for the camera"/>
+</j:VGroup></j:FormItem>
+<j:FormItem label="Frequency of Display" required="false" className="horizontalContentShrinkFormItem" visible="true"><j:TextInput localId="Frequency_id" percentWidth="100"><j:beads></j:beads></j:TextInput></j:FormItem>
+<j:FormItem label="Group" required="false" className="horizontalContentShrinkFormItem" visible="true"><j:TextInput localId="Group_id" percentWidth="100"><j:beads></j:beads></j:TextInput></j:FormItem>
+<j:FormItem label="SubGroup" required="false" className="horizontalContentShrinkFormItem" visible="true"><j:TextInput localId="SubGroup_id" percentWidth="100"><j:beads></j:beads></j:TextInput></j:FormItem>
+<j:FormItem label="Allowed TVs" required="false" className="horizontalContentShrinkFormItem" visible="true"><j:VGroup percentWidth="100">
+<components:MultiValueList localId="AllowedTVs_id" inputType="Text" restrictPattern="" percentWidth="100"/>
+<j:Label multiline="true" className="formFieldDescription" percentWidth="100"
+					text="TODO:  we'll want to rethink the design for this."/>
+</j:VGroup></j:FormItem>
+
+	</j:Form>
+
+	<j:Label localId="lblError"
+	    multiline="true" className="errorText" visible="false"/>
+
+	<j:Spacer height="20"/>
+	
+	<j:HGroup itemsHorizontalAlign="itemsCenter" gap="3" percentWidth="100">
+		<j:IconButton id="btnSubmit" text="Submit">
+			<j:icon>
+				<js:MaterialIcon text="{MaterialIconType.UPDATE}" />
+			</j:icon>
+		</j:IconButton>
+		<j:IconButton text="Cancel"
+			click="onBackRequest(event)">
+			<j:icon>
+				<js:MaterialIcon text="{MaterialIconType.ARROW_BACK}" />
+			</j:icon>
+		</j:IconButton>
+	</j:HGroup>
+</j:VGroup>
