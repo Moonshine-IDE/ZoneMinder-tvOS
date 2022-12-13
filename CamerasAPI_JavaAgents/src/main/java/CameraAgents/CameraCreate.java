@@ -38,9 +38,6 @@ public class CameraCreate extends CreateAgentBase {
 		fields.add(new FieldDefinition("SubGroup", FieldType.TEXT, false));
 
 
-		fields.add(new FieldDefinition("AllowedTVs", FieldType.TEXT, true));
-
-
 
 		return fields;
 	}
@@ -83,7 +80,6 @@ public class CameraCreate extends CreateAgentBase {
 		fields.add(new FieldDefinition("Frequency", FieldType.TEXT, false));
 		fields.add(new FieldDefinition("Group", FieldType.TEXT, false));
 		fields.add(new FieldDefinition("SubGroup", FieldType.TEXT, false));
-		fields.add(new FieldDefinition("AllowedTVs", FieldType.TEXT, true));
 
 		return fields;
 		

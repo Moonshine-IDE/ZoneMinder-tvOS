@@ -87,7 +87,6 @@ URL | Text | false | Access URL for the camera
 Frequency | Text | false | 
 Group | Text | false | 
 SubGroup | Text | false | 
-AllowedTVs | Text | true | TODO:  we'll want to rethink the design for this.
 
 
 ### Create
@@ -105,7 +104,6 @@ URL | Text | false | false | Access URL for the camera
 Frequency | Text | false | false | 
 Group | Text | false | false | 
 SubGroup | Text | false | false | 
-AllowedTVs | Text | true | false | TODO:  we'll want to rethink the design for this.
 
 
 Response properties | JSON Format | Notes
@@ -147,7 +145,6 @@ URL | Text | false | false | Access URL for the camera
 Frequency | Text | false | false | 
 Group | Text | false | false | 
 SubGroup | Text | false | false | 
-AllowedTVs | Text | true | false | TODO:  we'll want to rethink the design for this.
 
 
 Response:  No additional values.  TODO: return the document?

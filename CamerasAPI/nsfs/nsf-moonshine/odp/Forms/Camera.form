@@ -90,19 +90,6 @@
             <par/>
           </tablecell>
         </tablerow>
-        <tablerow>
-          <tablecell>
-            <par>Allowed TVs</par>
-          </tablecell>
-          <tablecell>
-            <par>
-              <field allowmultivalues="true" allowtabout="false" computeaftervalidation="false" dataconnectionfield="data" defaultfocus="false" kind="editable" listdisplayseparator="semicolon" listinputseparators="comma semicolon" name="AllowedTVs" protected="false" showdelimiters="true" sign="false" storelocally="false" type="text" useappletinbrowser="false"/>
-            </par>
-          </tablecell>
-          <tablecell>
-            <par>TODO:  we'll want to rethink the design for this.</par>
-          </tablecell>
-        </tablerow>
       </table>
     </richtext>
   </body>

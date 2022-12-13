@@ -36,7 +36,4 @@
   <column itemname="SubGroup" sort="none" categorized="false" twisties="true" width="30">
     <columnheader title="SubGroup"/>
   </column>
-  <column itemname="AllowedTVs" sort="none" categorized="false" twisties="true" width="30">
-    <columnheader title="Allowed TVs"/>
-  </column>
 </view>

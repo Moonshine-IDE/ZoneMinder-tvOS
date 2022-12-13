@@ -35,9 +35,6 @@ public class CameraUpdate extends UpdateAgentBase {
 		fields.add(new FieldDefinition("SubGroup", FieldType.TEXT, false));
 
 
-		fields.add(new FieldDefinition("AllowedTVs", FieldType.TEXT, true));
-
-
 
 		return fields;
 	}
