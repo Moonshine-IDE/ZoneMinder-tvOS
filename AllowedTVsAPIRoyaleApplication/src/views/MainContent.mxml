@@ -4,16 +4,16 @@
 						     xmlns:js="library://ns.apache.org/royale/basic"
 						     xmlns:html="library://ns.apache.org/royale/html"
 						     xmlns:general="views.general.*" 
-						     xmlns:CameraListing="views.modules.Camera.CameraViews.*" 
-xmlns:CameraAddEdit="views.modules.Camera.CameraViews.*" 
+						     xmlns:AllowedTVsListing="views.modules.AllowedTVs.AllowedTVsViews.*" 
+xmlns:AllowedTVsAddEdit="views.modules.AllowedTVs.AllowedTVsViews.*" 
 						     initComplete="onInitCompleted()">
 	<fx:Script>
 		<![CDATA[
 			import classes.events.ScreenEvent;
 			import classes.utils.Utils;
 			
-			import views.modules.Camera.CameraViews.CameraListing;
-import views.modules.Camera.CameraViews.CameraAddEdit;
+			import views.modules.AllowedTVs.AllowedTVsViews.AllowedTVsListing;
+import views.modules.AllowedTVs.AllowedTVsViews.AllowedTVsAddEdit;
 
 			private function onInitCompleted():void
             {
@@ -41,11 +41,11 @@ import views.modules.Camera.CameraViews.CameraAddEdit;
 			<general:Dashboard eventNavigateTo="onNavigationChangeRequest(event)"
 								  percentWidth="100"/>
 		</j:ScrollableSectionContent>
-		<j:ScrollableSectionContent name="{CameraListing.NAME}" className="sectionCenter" percentWidth="100">
-	<CameraListing:CameraListing localId="CameraListing_ID" eventNavigateTo="onNavigationChangeRequest(event)" percentWidth="100"/>
+		<j:ScrollableSectionContent name="{AllowedTVsListing.NAME}" className="sectionCenter" percentWidth="100">
+	<AllowedTVsListing:AllowedTVsListing localId="AllowedTVsListing_ID" eventNavigateTo="onNavigationChangeRequest(event)" percentWidth="100"/>
 </j:ScrollableSectionContent>
-<j:ScrollableSectionContent name="{CameraAddEdit.NAME}" className="sectionCenter" percentWidth="100">
-	<CameraAddEdit:CameraAddEdit localId="CameraAddEdit_ID" eventNavigateTo="onNavigationChangeRequest(event)" percentWidth="100"/>
+<j:ScrollableSectionContent name="{AllowedTVsAddEdit.NAME}" className="sectionCenter" percentWidth="100">
+	<AllowedTVsAddEdit:AllowedTVsAddEdit localId="AllowedTVsAddEdit_ID" eventNavigateTo="onNavigationChangeRequest(event)" percentWidth="100"/>
 </j:ScrollableSectionContent>
 
 	</j:ApplicationMainContent>
