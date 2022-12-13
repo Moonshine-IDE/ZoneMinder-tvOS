@@ -1,4 +1,4 @@
-package CameraAgents;
+package AllowedTVsAgents;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -14,26 +14,23 @@ import com.moonshine.domino.util.ParameterException;
 
 import lotus.domino.*;
 
-public class CameraRead extends GetAllAgentBase {
+public class AllowedTVsRead extends GetAllAgentBase {
 	protected View getLookupView() throws NotesException {
-		return agentDatabase.getView("Cameras");
+		return agentDatabase.getView("Allowed TVs");
 	}
 	
 	protected Collection<FieldDefinition> getFieldList() {
 		Collection<FieldDefinition> fields = new ArrayList<FieldDefinition>();
-		fields.add(new FieldDefinition("CameraID", FieldType.TEXT, false));
-		fields.add(new FieldDefinition("Name", FieldType.TEXT, false));
-		fields.add(new FieldDefinition("URL", FieldType.TEXT, false));
-		fields.add(new FieldDefinition("Frequency", FieldType.TEXT, false));
-		fields.add(new FieldDefinition("Group", FieldType.TEXT, false));
-		fields.add(new FieldDefinition("SubGroup", FieldType.TEXT, false));
+		fields.add(new FieldDefinition("ID", FieldType.TEXT, false));
+		fields.add(new FieldDefinition("tvName", FieldType.TEXT, false));
+		fields.add(new FieldDefinition("availableCameras", FieldType.TEXT, true));
 
 		return fields;
 	}
 	
 	protected Object getFilterKey() throws ParameterException {
 		Collection<FieldDefinition> keys = new ArrayList<FieldDefinition>();
-		keys.add(new FieldDefinition("CameraID", FieldType.TEXT, false));
+		keys.add(new FieldDefinition("tvName", FieldType.TEXT, false));
 
 
 

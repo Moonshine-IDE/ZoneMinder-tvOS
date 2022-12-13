@@ -1,4 +1,4 @@
-package CameraAgents;
+package AllowedTVsAgents;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,30 +12,21 @@ import com.moonshine.domino.util.ParameterException;
 
 import lotus.domino.*;
 
-public class CameraCreate extends CreateAgentBase {
+public class AllowedTVsCreate extends CreateAgentBase {
 	protected String getFormName() {
-		return "Camera";
+		return "AllowedTVs";
 	}
 	 
 
 	protected Collection<FieldDefinition> getFieldList() {
 		Collection<FieldDefinition> fields = new ArrayList<FieldDefinition>();
-		fields.add(new FieldDefinition("CameraID", FieldType.TEXT, false));
+		fields.add(new FieldDefinition("ID", FieldType.TEXT, false));
 
 
-		fields.add(new FieldDefinition("Name", FieldType.TEXT, false));
+		fields.add(new FieldDefinition("tvName", FieldType.TEXT, false));
 
 
-		fields.add(new FieldDefinition("URL", FieldType.TEXT, false));
-
-
-		fields.add(new FieldDefinition("Frequency", FieldType.TEXT, false));
-
-
-		fields.add(new FieldDefinition("Group", FieldType.TEXT, false));
-
-
-		fields.add(new FieldDefinition("SubGroup", FieldType.TEXT, false));
+		fields.add(new FieldDefinition("availableCameras", FieldType.TEXT, true));
 
 
 
@@ -48,7 +39,7 @@ public class CameraCreate extends CreateAgentBase {
 		
 		/* You can add uniqueness validation like this:
 		Collection<FieldDefinition> keys = new ArrayList<FieldDefinition>();
-		keys.add(new FieldDefinition("CameraID", FieldType.TEXT, false));
+		keys.add(new FieldDefinition("tvName", FieldType.TEXT, false));
 
 
 		return getKeyRequired(keys);
@@ -61,7 +52,7 @@ public class CameraCreate extends CreateAgentBase {
 		
 		/* If uniqueness validation is desired:
 		try {
-			return DominoUtils.getView(agentDatabase, "Cameras");
+			return DominoUtils.getView(agentDatabase, "Allowed TVs");
 		}
 		catch (Exception ex) {
 			getLog().err("Could not open lookup view: ", ex);
@@ -74,12 +65,9 @@ public class CameraCreate extends CreateAgentBase {
 	@Override
 	protected Collection<FieldDefinition> getReturnFieldList() {
 		Collection<FieldDefinition> fields = new ArrayList<FieldDefinition>();
-		fields.add(new FieldDefinition("CameraID", FieldType.TEXT, false));
-		fields.add(new FieldDefinition("Name", FieldType.TEXT, false));
-		fields.add(new FieldDefinition("URL", FieldType.TEXT, false));
-		fields.add(new FieldDefinition("Frequency", FieldType.TEXT, false));
-		fields.add(new FieldDefinition("Group", FieldType.TEXT, false));
-		fields.add(new FieldDefinition("SubGroup", FieldType.TEXT, false));
+		fields.add(new FieldDefinition("ID", FieldType.TEXT, false));
+		fields.add(new FieldDefinition("tvName", FieldType.TEXT, false));
+		fields.add(new FieldDefinition("availableCameras", FieldType.TEXT, true));
 
 		return fields;
 		

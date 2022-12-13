@@ -67,16 +67,6 @@ public function set SubGroup(value:String):void
 	_SubGroup = value;
 }
 
-private var _AllowedTVs:ArrayList = new ArrayList();
-public function get AllowedTVs():ArrayList
-{
-	return _AllowedTVs;
-}
-public function set AllowedTVs(value:ArrayList):void
-{
-	_AllowedTVs = value;
-}
-
 
 
 		public function CameraVO()
@@ -92,8 +82,7 @@ Name: this.Name,
 URL: this.URL,
 Frequency: this.Frequency,
 Group: this.Group,
-SubGroup: this.SubGroup,
-AllowedTVs: this.AllowedTVs ? JSON.stringify(AllowedTVs.source) : "[]"
+SubGroup: this.SubGroup
 };
 if (DominoUniversalID) tmpRequestObject.DominoUniversalID = DominoUniversalID;
 return tmpRequestObject;
@@ -108,7 +97,6 @@ if ("URL" in value){	tmpVO.URL = value.URL;	}
 if ("Frequency" in value){	tmpVO.Frequency = value.Frequency;	}
 if ("Group" in value){	tmpVO.Group = value.Group;	}
 if ("SubGroup" in value){	tmpVO.SubGroup = value.SubGroup;	}
-if ("AllowedTVs" in value){	tmpVO.AllowedTVs = new ArrayList(value.AllowedTVs);	}
 if ("DominoUniversalID" in value){	tmpVO.DominoUniversalID = value.DominoUniversalID;	}
 
             return tmpVO;

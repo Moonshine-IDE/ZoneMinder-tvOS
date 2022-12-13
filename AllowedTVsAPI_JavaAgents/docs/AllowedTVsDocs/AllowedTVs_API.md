@@ -10,7 +10,7 @@ Component | Notes
 ----------|------
 server | A FQDN or IP address.  This can also include a port
 database | The path to the Domino database, relative to the Notes Data Directory
-action | Follows the format Camera<Action>.  See [Actions](#actions) below
+action | Follows the format AllowedTVs<Action>.  See [Actions](#actions) below
 `?OpenAgent` | This is required by Domino to reference the agent.
 Parameters | See [Shared Parameters](#shared-parameters) and [Actions](#actions)
 
@@ -81,12 +81,9 @@ TODO:  support special format?
 Document properties | Type | Multivalue | Notes
 --------------------|------|------------|------
 DominoUniveralID    | Text | No         | Used as the lookup key for Create and Update agents.
-CameraID | Text | false | 
-Name | Text | false | 
-URL | Text | false | Access URL for the camera
-Frequency | Text | false | 
-Group | Text | false | 
-SubGroup | Text | false | 
+ID | Text | false | AppleTV item ID
+tvName | Text | false | 
+availableCameras | Text | true | Camera IDs available to the particular TV
 
 
 ### Create
@@ -98,12 +95,9 @@ Create a new document.  Run `Document.computeWithForm` before saving the documen
 
 Parameters | Type | Multivalue | Required | Notes
 -----------|------|------------|----------|------
-CameraID | Text | false | false | 
-Name | Text | false | false | 
-URL | Text | false | false | Access URL for the camera
-Frequency | Text | false | false | 
-Group | Text | false | false | 
-SubGroup | Text | false | false | 
+ID | Text | false | false | AppleTV item ID
+tvName | Text | false | false | 
+availableCameras | Text | true | false | Camera IDs available to the particular TV
 
 
 Response properties | JSON Format | Notes
@@ -119,7 +113,7 @@ Read all documents.  If keys are provided, return only the document matching the
 
 Parameters | Type | Multivalue | Required | Notes
 -----------|------|------------|----------|------
-CameraID | Text | false | true | 
+tvName | Text | false | true | 
 
 
 Response properties | JSON Format | Notes
@@ -139,12 +133,9 @@ Update a document.  Run `Document.computeWithForm` before saving the document.  
 Parameters | Type | Multivalue | Required | Notes
 -----------|------|------------|----------|------
 DominoUniversalID | Text | No | Yes | 
-CameraID | Text | false | false | 
-Name | Text | false | false | 
-URL | Text | false | false | Access URL for the camera
-Frequency | Text | false | false | 
-Group | Text | false | false | 
-SubGroup | Text | false | false | 
+ID | Text | false | false | AppleTV item ID
+tvName | Text | false | false | 
+availableCameras | Text | true | false | Camera IDs available to the particular TV
 
 
 Response:  No additional values.  TODO: return the document?

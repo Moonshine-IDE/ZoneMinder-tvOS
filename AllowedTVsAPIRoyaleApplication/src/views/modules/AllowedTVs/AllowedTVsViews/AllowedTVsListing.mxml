@@ -15,14 +15,14 @@
 			import org.apache.royale.events.MouseEvent;
             import classes.events.DeleteItemEvent;
             import org.apache.royale.events.Event;
-			import views.modules.Camera.CameraViews.CameraAddEdit;
-import views.modules.Camera.CameraVO.CameraVO;
-import views.modules.Camera.CameraServices.CameraProxy;
+			import views.modules.AllowedTVs.AllowedTVsViews.AllowedTVsAddEdit;
+import views.modules.AllowedTVs.AllowedTVsVO.AllowedTVsVO;
+import views.modules.AllowedTVs.AllowedTVsServices.AllowedTVsProxy;
 			
-			public static const NAME:String = "CameraListing";
+			public static const NAME:String = "AllowedTVsListing";
 
 			[Bindable]
-            private var proxy:CameraProxy = CameraProxy.getInstance();
+            private var proxy:AllowedTVsProxy = AllowedTVsProxy.getInstance();
             private var isItemsRequested:Boolean;
 
             public function refresh():void
@@ -36,14 +36,14 @@ import views.modules.Camera.CameraServices.CameraProxy;
 
             private function onInitCompletes():void
             {
-                proxy.addEventListener(CameraProxy.EVENT_ITEM_UPDATED, onItemBeingUpdated);
+                proxy.addEventListener(AllowedTVsProxy.EVENT_ITEM_UPDATED, onItemBeingUpdated);
                 dgItems.addEventListener(DeleteItemEvent.DELETE_TABLE_ITEM, onItemDeletionRequest);
             }
 
 			private function onAddNewRequest(event:MouseEvent):void
 			{
 			    this.proxy.selectedItem = null;
-				dispatchEvent(new ScreenEvent(ScreenEvent.EVENT_NAVIGATE_TO, CameraAddEdit.NAME));
+				dispatchEvent(new ScreenEvent(ScreenEvent.EVENT_NAVIGATE_TO, AllowedTVsAddEdit.NAME));
 			}
 
 			private function onRefresh(event:MouseEvent):void
@@ -58,14 +58,14 @@ import views.modules.Camera.CameraServices.CameraProxy;
 			
 			private function onItemDoubleClicked(event:Event):void
             {
-                proxy.selectedItem = this.dgItems.selectedItem as CameraVO;
-                dispatchEvent(new ScreenEvent(ScreenEvent.EVENT_NAVIGATE_TO, CameraAddEdit.NAME));
-                proxy.dispatchEvent(new Event(CameraProxy.EVENT_ITEM_SELECTED));
+                proxy.selectedItem = this.dgItems.selectedItem as AllowedTVsVO;
+                dispatchEvent(new ScreenEvent(ScreenEvent.EVENT_NAVIGATE_TO, AllowedTVsAddEdit.NAME));
+                proxy.dispatchEvent(new Event(AllowedTVsProxy.EVENT_ITEM_SELECTED));
             }
             
             private function onItemDeletionRequest(event:DeleteItemEvent):void
             {
-                var item:CameraVO = event.item as CameraVO;
+                var item:AllowedTVsVO = event.item as AllowedTVsVO;
                 proxy.removeItem(item);
             }
             
@@ -83,7 +83,7 @@ import views.modules.Camera.CameraServices.CameraProxy;
 	<j:Grid gap="false">
 		<j:GridCell desktopNumerator="1" desktopDenominator="2" tabletNumerator="1" 
 					tabletDenominator="2" phoneNumerator="1" phoneDenominator="2">
-			<html:H2 text="Cameras"/>
+			<html:H2 text="Allowed TVs"/>
 		</j:GridCell>
 		<j:GridCell desktopNumerator="1" desktopDenominator="2" tabletNumerator="1" tabletDenominator="2" 
 					phoneNumerator="1" phoneDenominator="2">
@@ -120,12 +120,9 @@ import views.modules.Camera.CameraServices.CameraProxy;
 	    className="dataGridOwner"
 	    doubleClick="onItemDoubleClicked(event)">
 		<j:columns>
-			<j:DataGridColumn label="ID" dataField="CameraID"  columnWidth="200"/>
-<j:DataGridColumn label="Name" dataField="Name"  columnWidth="200"/>
-<j:DataGridColumn label="URL" dataField="URL"  columnWidth="200"/>
-<j:DataGridColumn label="Frequency of Display" dataField="Frequency"  columnWidth="200"/>
-<j:DataGridColumn label="Group" dataField="Group"  columnWidth="200"/>
-<j:DataGridColumn label="SubGroup" dataField="SubGroup"  columnWidth="200"/>
+			<j:DataGridColumn label="ID" dataField="ID"  columnWidth="200"/>
+<j:DataGridColumn label="Display Name" dataField="tvName"  columnWidth="200"/>
+<j:DataGridColumn label="Camera List" dataField="availableCameras" itemRenderer="views.renderers.MultivalueStringGridItemRenderer" columnWidth="200"/>
 
 			<j:DataGridColumn label="Delete" itemRenderer="views.renderers.DeleteGridItemRenderer" 
 							  columnWidth="100"/>

@@ -1,4 +1,4 @@
-package CameraAgents;
+package AllowedTVsAgents;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,27 +12,18 @@ import com.moonshine.domino.util.ParameterException;
 
 import lotus.domino.*;
 
-public class CameraUpdate extends UpdateAgentBase {
+public class AllowedTVsUpdate extends UpdateAgentBase {
 	 
 
 	protected Collection<FieldDefinition> getFieldList() {
 		Collection<FieldDefinition> fields = new ArrayList<FieldDefinition>();
-		fields.add(new FieldDefinition("CameraID", FieldType.TEXT, false));
+		fields.add(new FieldDefinition("ID", FieldType.TEXT, false));
 
 
-		fields.add(new FieldDefinition("Name", FieldType.TEXT, false));
+		fields.add(new FieldDefinition("tvName", FieldType.TEXT, false));
 
 
-		fields.add(new FieldDefinition("URL", FieldType.TEXT, false));
-
-
-		fields.add(new FieldDefinition("Frequency", FieldType.TEXT, false));
-
-
-		fields.add(new FieldDefinition("Group", FieldType.TEXT, false));
-
-
-		fields.add(new FieldDefinition("SubGroup", FieldType.TEXT, false));
+		fields.add(new FieldDefinition("availableCameras", FieldType.TEXT, true));
 
 
 
@@ -45,7 +36,7 @@ public class CameraUpdate extends UpdateAgentBase {
 		keys.add(new FieldDefinition(getUniversalIDName(), FieldType.TEXT, false));
 		
 		/* You can use custom keys like this
-		keys.add(new FieldDefinition("CameraID", FieldType.TEXT, false));
+		keys.add(new FieldDefinition("tvName", FieldType.TEXT, false));
 
 
 		*/
@@ -59,7 +50,7 @@ public class CameraUpdate extends UpdateAgentBase {
 		
 		/* For custom keys
 		try {
-			return DominoUtils.getView(agentDatabase, "Cameras");
+			return DominoUtils.getView(agentDatabase, "Allowed TVs");
 		}
 		catch (Exception ex) {
 			getLog().err("Could not open lookup view: ", ex);

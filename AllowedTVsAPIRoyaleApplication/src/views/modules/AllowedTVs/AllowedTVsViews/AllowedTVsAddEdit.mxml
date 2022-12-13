@@ -15,18 +15,18 @@
 			import classes.events.ErrorEvent;
             import org.apache.royale.jewel.Snackbar;
             import org.apache.royale.events.Event;
-			import views.modules.Camera.CameraViews.CameraListing;
-import views.modules.Camera.CameraServices.CameraProxy;
-import views.modules.Camera.CameraVO.CameraVO;
+			import views.modules.AllowedTVs.AllowedTVsViews.AllowedTVsListing;
+import views.modules.AllowedTVs.AllowedTVsServices.AllowedTVsProxy;
+import views.modules.AllowedTVs.AllowedTVsVO.AllowedTVsVO;
 			
-			public static const NAME:String = "CameraAddEdit";
+			public static const NAME:String = "AllowedTVsAddEdit";
 
-			private var proxy:CameraProxy = CameraProxy.getInstance();
+			private var proxy:AllowedTVsProxy = AllowedTVsProxy.getInstance();
 
 			private function onInitCompletes():void
             {
-                proxy.addEventListener(CameraProxy.EVENT_ITEM_SELECTED, onItemBeingSelected);
-                proxy.addEventListener(CameraProxy.EVENT_ITEM_UPDATED, onItemBeingUpdated);
+                proxy.addEventListener(AllowedTVsProxy.EVENT_ITEM_SELECTED, onItemBeingSelected);
+                proxy.addEventListener(AllowedTVsProxy.EVENT_ITEM_UPDATED, onItemBeingUpdated);
                 proxy.addEventListener(ErrorEvent.SERVER_ERROR, onSubmitError);
             }
 
@@ -34,12 +34,9 @@ import views.modules.Camera.CameraVO.CameraVO;
             {
                 if (proxy.selectedItem != null)
                 {
-                    CameraID_id.text = proxy.selectedItem.CameraID;
-Name_id.text = proxy.selectedItem.Name;
-URL_id.text = proxy.selectedItem.URL;
-Frequency_id.text = proxy.selectedItem.Frequency;
-Group_id.text = proxy.selectedItem.Group;
-SubGroup_id.text = proxy.selectedItem.SubGroup;
+                    ID_id.text = proxy.selectedItem.ID;
+tvName_id.text = proxy.selectedItem.tvName;
+availableCameras_id.dataProvider = proxy.selectedItem.availableCameras;
 
                 }
             }
@@ -47,20 +44,17 @@ SubGroup_id.text = proxy.selectedItem.SubGroup;
 			private function onBackRequest(event:MouseEvent):void
 			{
 			    reset();
-				dispatchEvent(new ScreenEvent(ScreenEvent.EVENT_NAVIGATE_TO, CameraListing.NAME));
+				dispatchEvent(new ScreenEvent(ScreenEvent.EVENT_NAVIGATE_TO, AllowedTVsListing.NAME));
 			}
 
 			private function onFormValid(event:Event):void
             {
                 resetErrorMessage();
 
-                var submitObject:CameraVO = new CameraVO();
-submitObject.CameraID = CameraID_id.text;
-submitObject.Name = Name_id.text;
-submitObject.URL = URL_id.text;
-submitObject.Frequency = Frequency_id.text;
-submitObject.Group = Group_id.text;
-submitObject.SubGroup = SubGroup_id.text;
+                var submitObject:AllowedTVsVO = new AllowedTVsVO();
+submitObject.ID = ID_id.text;
+submitObject.tvName = tvName_id.text;
+submitObject.availableCameras = availableCameras_id.dataProvider;
 if (proxy.selectedItem) submitObject.DominoUniversalID = proxy.selectedItem.DominoUniversalID;
 proxy.submitItem(submitObject);
 
@@ -89,12 +83,9 @@ proxy.submitItem(submitObject);
             {
                 resetErrorMessage();
 
-                CameraID_id.text = null;
-Name_id.text = null;
-URL_id.text = null;
-Frequency_id.text = null;
-Group_id.text = null;
-SubGroup_id.text = null;
+                ID_id.text = null;
+tvName_id.text = null;
+availableCameras_id.dataProvider = null;
 
             }
 
@@ -110,7 +101,7 @@ SubGroup_id.text = null;
 		<js:ContainerDataBinding />
 	</j:beads>
 	
-	<html:H2 text="Add/Edit to Cameras"/>
+	<html:H2 text="Add/Edit to Allowed TVs"/>
 	
 	<js:HRule percentWidth="100"/>
 	<j:Spacer height="20"/>
@@ -120,16 +111,17 @@ SubGroup_id.text = null;
 			<j:FormValidator id="formValidator" trigger="{btnSubmit}" triggerEvent="click" 
 							 requiredFieldError="At least one field has a validation error. Please correct the problem and submit again."/>
 		</j:beads>
-		<j:FormItem label="ID" required="false" className="horizontalContentShrinkFormItem" visible="true"><j:TextInput localId="CameraID_id" percentWidth="100"><j:beads></j:beads></j:TextInput></j:FormItem>
-<j:FormItem label="Name" required="false" className="horizontalContentShrinkFormItem" visible="true"><j:TextInput localId="Name_id" percentWidth="100"><j:beads></j:beads></j:TextInput></j:FormItem>
-<j:FormItem label="URL" required="false" className="horizontalContentShrinkFormItem" visible="true"><j:VGroup percentWidth="100">
-<j:TextInput localId="URL_id" percentWidth="100"><j:beads></j:beads></j:TextInput>
+		<j:FormItem label="ID" required="false" className="horizontalContentShrinkFormItem" visible="true"><j:VGroup percentWidth="100">
+<j:TextInput localId="ID_id" percentWidth="100"><j:beads></j:beads></j:TextInput>
 <j:Label multiline="true" className="formFieldDescription" percentWidth="100"
-					text="Access URL for the camera"/>
+					text="AppleTV item ID"/>
 </j:VGroup></j:FormItem>
-<j:FormItem label="Frequency of Display" required="false" className="horizontalContentShrinkFormItem" visible="true"><j:TextInput localId="Frequency_id" percentWidth="100"><j:beads></j:beads></j:TextInput></j:FormItem>
-<j:FormItem label="Group" required="false" className="horizontalContentShrinkFormItem" visible="true"><j:TextInput localId="Group_id" percentWidth="100"><j:beads></j:beads></j:TextInput></j:FormItem>
-<j:FormItem label="SubGroup" required="false" className="horizontalContentShrinkFormItem" visible="true"><j:TextInput localId="SubGroup_id" percentWidth="100"><j:beads></j:beads></j:TextInput></j:FormItem>
+<j:FormItem label="Display Name" required="false" className="horizontalContentShrinkFormItem" visible="true"><j:TextInput localId="tvName_id" percentWidth="100"><j:beads></j:beads></j:TextInput></j:FormItem>
+<j:FormItem label="Camera List" required="false" className="horizontalContentShrinkFormItem" visible="true"><j:VGroup percentWidth="100">
+<components:MultiValueList localId="availableCameras_id" inputType="Text" restrictPattern="" percentWidth="100"/>
+<j:Label multiline="true" className="formFieldDescription" percentWidth="100"
+					text="Camera IDs available to the particular TV"/>
+</j:VGroup></j:FormItem>
 
 	</j:Form>
 
