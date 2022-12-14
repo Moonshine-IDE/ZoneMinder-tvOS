@@ -10,11 +10,7 @@ import Foundation
 struct TVItemVO:Decodable
 {
     let name:String!
-    let message:String!
-    let entries:[String]!
-    let critical:Bool!
-    
-    func alertTitle() -> String {
-        return name + " (" + ((message != nil) ? message : "") + ")"
-    }
+    let ID:String!
+    let dominoUniversalID:String!
+    let cameras:[String]!
 }

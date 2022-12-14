@@ -7,9 +7,10 @@
 
 import Foundation
 
-typealias AlertItems = [AlertItemVO]
+typealias TVItems = [TVItemVO]
+typealias CameraItems = [CameraItemVO]
 
-@objc protocol DataManagerDelegates: AnyObject
+@objc protocol TVsDataManagerDelegates: AnyObject
 {
     func dataUpdated()
     @objc optional func dataUpdateFailed(error:String)
@@ -38,7 +39,7 @@ class DataManager: NSObject
         }
     }
     
-    weak var delegate: DataManagerDelegates!
+    weak var tvsDelegate: TVsDataManagerDelegates!
     
     lazy var jsonData:JSONDataVO! =
     {
@@ -50,6 +51,8 @@ class DataManager: NSObject
         return rtu
     }()
     
+    fileprivate var tvItems:TVItems!
+    fileprivate var cameraItems:CameraItems!
     fileprivate var items:AlertItems!
     fileprivate var itemsNonFiltered:AlertItems!
     fileprivate var lastAutoReloadEventSeconds:ReloadSecondsOption!
@@ -60,108 +63,60 @@ class DataManager: NSObject
         return INSTANCE
     }
     
-    func requestData()
+    func requestTVsData()
     {
-        loadingStartTime = Date()
-        items = [AlertItemVO]()
-        URLSession.shared.dataTask(with: URL(string: jsonURL)!) { (data, response, err) in
-            
-            if (err != nil)
+        self.tvItems = [TVItemVO]()
+        
+        // local resource
+        if let localAllowedTVFile = Bundle.main.path(forResource: "AllowedTVs", ofType: "json")
+        {
+            guard let allowedTVsContent = NSData(contentsOfFile: localAllowedTVFile) else { return }
+            do
             {
-                self.countFailure += 1
-                self.delegate.dataUpdateFailed!(error: err!.localizedDescription)
-            }
-            else
-            {
-                guard let data = data else { return }
-                do
+                let tvsJsonObj = try JSONSerialization.jsonObject(with: allowedTVsContent as Data, options: .allowFragments) as? Dictionary<String, AnyObject>
+                
+                if let reportedJSONError = tvsJsonObj!["errorMessage"] as? String
                 {
-                    let jsonObj = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? Dictionary<String, AnyObject>
-                    
-                    if let reportedJSONError = jsonObj!["TextDashboard"]!["errormessage"] as? String
+                    self.jsonData.reportedError = reportedJSONError
+                }
+                
+                if let results = tvsJsonObj!["documents"] as? [AnyObject]
+                {
+                    var tvItem:TVItemVO!
+                    var entries:[String]!
+                    for obj in results
                     {
-                        self.jsonData.reportedError = reportedJSONError
-                    }
-                    
-                    self.delegate.jsonHasReportedError!(error: self.jsonData.reportedError)
-                    
-                    if let results = jsonObj!["TextDashboard"]!["report"] as? [AnyObject]
-                    {
-                        var alertItem:AlertItemVO!
-                        var entries:[String]!
-                        for obj in results
-                        {
-                            // json returns as non-array when it contains
-                            // single item entry
-                            if let singleEntry = obj["entry"] as? String
-                            {
-                                entries = [singleEntry]
-                            }
-                            else
-                            {
-                                entries = obj["entry"] as? [String]
-                            }
-                            
-                            alertItem = AlertItemVO(
-                                name: obj["name"] as? String,
-                                message: obj["message"] as? String,
-                                entries: entries,
-                                critical: ((obj["critical"] as? String) == "true" ? true : false)
-                            )
-                            
-                            self.items.append(alertItem)
-                        }
+                        tvItem = TVItemVO(
+                            name: obj["tvName"] as? String,
+                            ID: obj["ID"] as? String,
+                            dominoUniversalID: obj["DominoUniversalID"] as? String,
+                            cameras: obj["message"] as? [String]
+                        )
                         
-                        // set filteration if available
-                        self.filterCriticalAlerts()
+                        self.tvItems.append(tvItem)
                     }
                     
-                    // average loading time/seconds
-                    self.countSuccess += 1
-                    self.averageLoadingTime = Date().timeIntervalSince(self.loadingStartTime).roundToDecimal(2)
-                    
-                    if let jsonMessage = jsonObj!["TextDashboard"]!["message"] as? String
-                    {
-                        self.jsonData.message = jsonMessage
-                    }
-                    
-                    if self.delegate != nil
-                    {
-                        DispatchQueue.main.async {
-                            self.delegate.dataUpdated()
-                            self.startAutoRefreshTimer()
-                        }
-                    }
-                    
-                } catch _
+                    self.sortTVs()
+                }
+                
+                if self.tvsDelegate != nil
                 {
-                    self.countFailure += 1
-                    if let _ = String(data: data, encoding: String.Encoding.utf8) {
-                        self.delegate.dataUpdateFailed!(error: "JSON conversion failed! You can contact to the Administrator, or wait until a reload.")
+                    DispatchQueue.main.async {
+                        self.tvsDelegate.dataUpdated()
                     }
                 }
             }
-            
-        }.resume()
-    }
-    
-    func filterCriticalAlerts()
-    {
-        if !ConstantsVO.showNonCriticalAlerts
-        {
-            itemsNonFiltered = self.items
-            items = items.filter { (alertItem) -> Bool in
-                alertItem.critical == true
+            catch _
+            {
+                self.tvsDelegate.dataUpdateFailed!(error: "JSON conversion failed! You can contact to the Administrator, or wait until a reload.")
             }
         }
     }
     
-    func releaseFilterCriticalAlerts()
+    func sortTVs()
     {
-        if (itemsNonFiltered != nil) && ConstantsVO.showNonCriticalAlerts
-        {
-            self.items = self.itemsNonFiltered
-            itemsNonFiltered = nil
+        tvItems.sort { (itemA, itemB) ->Bool in
+            itemA.name < itemB.name
         }
     }
     

@@ -1,0 +1,12 @@
+{
+  "data" : [
+    {
+      "filename" : "AllowedTVs.json",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

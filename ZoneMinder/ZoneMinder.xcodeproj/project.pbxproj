@@ -11,7 +11,7 @@
 		4A4B907D2948A86E00CCF938 /* TVItemVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4B907C2948A86E00CCF938 /* TVItemVO.swift */; };
 		4A4B907F2948A89B00CCF938 /* CameraItemVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4B907E2948A89B00CCF938 /* CameraItemVO.swift */; };
 		4AD9D9422940994200BC1EE8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD9D9412940994200BC1EE8 /* AppDelegate.swift */; };
-		4AD9D9442940994200BC1EE8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD9D9432940994200BC1EE8 /* ViewController.swift */; };
+		4AD9D9442940994200BC1EE8 /* WelcomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD9D9432940994200BC1EE8 /* WelcomeController.swift */; };
 		4AD9D9472940994200BC1EE8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AD9D9452940994200BC1EE8 /* Main.storyboard */; };
 		4AD9D9492940994300BC1EE8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AD9D9482940994300BC1EE8 /* Assets.xcassets */; };
 		4AD9D94C2940994300BC1EE8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AD9D94A2940994300BC1EE8 /* LaunchScreen.storyboard */; };
@@ -43,7 +43,7 @@
 		4A4B907E2948A89B00CCF938 /* CameraItemVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraItemVO.swift; sourceTree = "<group>"; };
 		4AD9D93E2940994200BC1EE8 /* ZoneMinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZoneMinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AD9D9412940994200BC1EE8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4AD9D9432940994200BC1EE8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4AD9D9432940994200BC1EE8 /* WelcomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeController.swift; sourceTree = "<group>"; };
 		4AD9D9462940994200BC1EE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4AD9D9482940994300BC1EE8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4AD9D94B2940994300BC1EE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -79,6 +79,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A2293622949DD3900076BB3 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				4AD9D9432940994200BC1EE8 /* WelcomeController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		4A4B90782948A65F00CCF938 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,10 +127,10 @@
 		4AD9D9402940994200BC1EE8 /* ZoneMinder */ = {
 			isa = PBXGroup;
 			children = (
+				4A2293622949DD3900076BB3 /* ViewControllers */,
 				4A4B907B2948A84900CCF938 /* ValueObjects */,
 				4A4B90782948A65F00CCF938 /* Controllers */,
 				4AD9D9412940994200BC1EE8 /* AppDelegate.swift */,
-				4AD9D9432940994200BC1EE8 /* ViewController.swift */,
 				4AD9D9452940994200BC1EE8 /* Main.storyboard */,
 				4AD9D9482940994300BC1EE8 /* Assets.xcassets */,
 				4AD9D94A2940994300BC1EE8 /* LaunchScreen.storyboard */,
@@ -278,7 +286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4AD9D9442940994200BC1EE8 /* ViewController.swift in Sources */,
+				4AD9D9442940994200BC1EE8 /* WelcomeController.swift in Sources */,
 				4A4B907A2948A6E800CCF938 /* DataManager.swift in Sources */,
 				4AD9D9422940994200BC1EE8 /* AppDelegate.swift in Sources */,
 				4A4B907F2948A89B00CCF938 /* CameraItemVO.swift in Sources */,
@@ -474,6 +482,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 13.2;
 			};
 			name = Debug;
 		};
@@ -499,6 +508,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 13.2;
 			};
 			name = Release;
 		};
