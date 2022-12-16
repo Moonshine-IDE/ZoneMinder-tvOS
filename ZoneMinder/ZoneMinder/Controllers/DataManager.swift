@@ -17,46 +17,26 @@ typealias CameraItems = [CameraItemVO]
     @objc optional func jsonHasReportedError(error:String)
 }
 
+@objc protocol CamerasDataManagerDelegates: AnyObject
+{
+    func dataUpdated()
+    @objc optional func dataUpdateFailed(error:String)
+    @objc optional func jsonHasReportedError(error:String)
+}
+
 let INSTANCE : DataManager = DataManager()
 class DataManager: NSObject
 {
-    let jsonURL = "https://aggregatorz.prominic.net/aggregator-web/TransformServlet?summary=false&iamhuman=true&template=parameterized%2Fdashboard.xsl&title=Text&format=json&asxml=true&type=Text&reportType=dashboard&viewType=default&filter_field=CustomerID&filter_string=&targetType=engine&autoload=false&timer=60"
     //let jsonURL = "https://domino-49.prominic.net/SystemHealthAlertsTestData/DemoAlertsJSON.json"
     
     var countSuccess:Int = 0
     var countFailure:Int = 0
     
-    fileprivate var _averageLoadingTime:Double = 0
-    var averageLoadingTime:Double
-    {
-        get
-        {
-            return (_averageLoadingTime / Double(countSuccess)).roundToDecimal(2)
-        }
-        set
-        {
-            _averageLoadingTime += newValue
-        }
-    }
-    
     weak var tvsDelegate: TVsDataManagerDelegates!
-    
-    lazy var jsonData:JSONDataVO! =
-    {
-        return JSONDataVO()
-    }()
-    lazy var reloadTimerUtil:ReloadTimer! =
-    {
-        var rtu = ReloadTimer.getInstance
-        return rtu
-    }()
+    weak var camerasDelegate:CamerasDataManagerDelegates!
     
     fileprivate var tvItems:TVItems!
     fileprivate var cameraItems:CameraItems!
-    fileprivate var items:AlertItems!
-    fileprivate var itemsNonFiltered:AlertItems!
-    fileprivate var lastAutoReloadEventSeconds:ReloadSecondsOption!
-    fileprivate var loadingStartTime:Date!
     
     class var getInstance: DataManager
     {
@@ -77,13 +57,12 @@ class DataManager: NSObject
                 
                 if let reportedJSONError = tvsJsonObj!["errorMessage"] as? String
                 {
-                    self.jsonData.reportedError = reportedJSONError
+                    //self.jsonData.reportedError = reportedJSONError
                 }
                 
                 if let results = tvsJsonObj!["documents"] as? [AnyObject]
                 {
                     var tvItem:TVItemVO!
-                    var entries:[String]!
                     for obj in results
                     {
                         tvItem = TVItemVO(
@@ -122,48 +101,23 @@ class DataManager: NSObject
     
     // MARK: Methods practical for a table-view
     
-    func numberOfItemsInList() -> Int
+    func numberOfTVsInList() -> Int
     {
-        return (items != nil ? items.count : 0)
+        return (tvItems != nil ? tvItems.count : 0)
     }
     
-    func alertItem(itemAtIndex index: Int) -> AlertItemVO!
+    func tvItemAtIndex(itemAtIndex index: Int) -> TVItemVO!
     {
-        if index < items.count
+        if index < tvItems.count
         {
-            return items[index]
+            return tvItems[index]
         }
         
         return nil
     }
     
-    func getItems() -> AlertItems
+    func getTVItems() -> TVItems
     {
-        return items
-    }
-    
-    // MARK: Methods auto-refresh
-    
-    func startAutoRefreshTimer()
-    {
-        if (!self.reloadTimerUtil.isReloadTimerRunning())
-        {
-            self.reloadTimerUtil.startingNewAutoRefreshBy(seconds: ConstantsVO.reloadInEvent.self.rawValue)
-        }
-    }
-    
-    func restartAutoRefreshTimer()
-    {
-        ConstantsVO.reloadInEvent = lastAutoReloadEventSeconds
-        startAutoRefreshTimer()
-        
-        lastAutoReloadEventSeconds = nil
-    }
-    
-    func stopAutoRefreshTimer()
-    {
-        lastAutoReloadEventSeconds = ConstantsVO.reloadInEvent
-        ConstantsVO.reloadInEvent = .SECONDS_0
-        self.reloadTimerUtil.stopRefreshCountTimer()
+        return self.tvItems
     }
 }

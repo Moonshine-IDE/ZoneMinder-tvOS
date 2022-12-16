@@ -9,7 +9,7 @@ import UIKit
 
 class WelcomeController: UIViewController
 {
-    @IBOutlet weak var allowedTVsMenu: UITableView!
+    @IBOutlet weak var allowedTVsMenuTable: UITableView!
     
     var spinner:UIActivityIndicatorView!
     
@@ -24,6 +24,7 @@ class WelcomeController: UIViewController
     {
         super.viewDidLoad()
         
+        self.allowedTVsMenuTable.backgroundColor = UIColor.clear
         self.requestData()
     }
     
@@ -59,22 +60,57 @@ class WelcomeController: UIViewController
     }
 }
 
+extension WelcomeController: UITableViewDelegate, UITableViewDataSource
+{
+    func numberOfSections(in tableView: UITableView) -> Int
+    {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return self.dataManager.numberOfTVsInList()
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "tvTableViewCell") as? TVTableCellRenderer
+        if let item = self.dataManager.tvItemAtIndex(itemAtIndex: indexPath.row)
+        {
+            cell?.textLabel?.text = item.name
+            cell?.backgroundColor = UIColor.white
+        }
+        
+        return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        present(UIStoryboard.contentViewController()!, animated: false)
+    }
+    
+    func indexPathForPreferredFocusedView(in tableView: UITableView) -> IndexPath?
+    {
+        return IndexPath(row: 0, section: 0)
+    }
+}
+
 extension WelcomeController:TVsDataManagerDelegates
 {
     func dataUpdated()
     {
         DispatchQueue.main.async{
-            self.allowedTVsMenu.reloadData()
-            DispatchQueue.main.async{
-                if self.dataManager.numberOfItemsInList() > 0
+            self.allowedTVsMenuTable.reloadData()
+            DispatchQueue.main.async
+            {
+                if self.dataManager.numberOfTVsInList() > 0
                 {
-                    self.allowedTVsMenu.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .top)
+                    // keep first row fucused
+                    self.allowedTVsMenuTable.cellForRow(at: IndexPath(row: 0, section: 0))
                 }
-
-                self.updateSpinnerView(show: false)
                 
-                guard let tabBarController = self.tabBarController as? MenuTabBarControllerViewController else { return }
-                tabBarController.dataUpdated()
+                self.updateSpinnerView(show: false)
             }
         }
     }
+}
