@@ -37,6 +37,9 @@ class DataManager: NSObject
     
     fileprivate var tvItems:TVItems!
     fileprivate var cameraItems:CameraItems!
+    fileprivate var groups:[String]!
+    fileprivate var subgroups:[String]!
+    fileprivate var sidebarRootMenuData:[[String]]!
     
     class var getInstance: DataManager
     {
@@ -92,10 +95,82 @@ class DataManager: NSObject
         }
     }
     
+    func requestCamerasData()
+    {
+        self.cameraItems = [CameraItemVO]()
+        self.groups = [String]()
+        self.subgroups = [String]()
+        self.sidebarRootMenuData = [[String]]()
+        
+        // local resource
+        if let localCameraFile = Bundle.main.path(forResource: "Cameras", ofType: "json")
+        {
+            guard let camerasContent = NSData(contentsOfFile: localCameraFile) else { return }
+            do
+            {
+                let camerasJsonObj = try JSONSerialization.jsonObject(with: camerasContent as Data, options: .allowFragments) as? Dictionary<String, AnyObject>
+                
+                if let reportedJSONError = camerasJsonObj!["errorMessage"] as? String
+                {
+                    //self.jsonData.reportedError = reportedJSONError
+                }
+                
+                if let results = camerasJsonObj!["documents"] as? [AnyObject]
+                {
+                    var cameraItem:CameraItemVO!
+                    for obj in results
+                    {
+                        cameraItem = CameraItemVO(
+                            dominoUniversalID: obj["DominoUniversalID"] as? String,
+                            cameraID: obj["CameraID"] as? String,
+                            cameraName: obj["Name"] as? String,
+                            url: obj["URL"] as? String,
+                            frequency: Int((obj["Frequency"] as? String)!),
+                            group: obj["Group"] as? String,
+                            subGroup: obj["SubGroup"] as? String
+                        )
+                        
+                        self.cameraItems.append(cameraItem)
+                        if !self.groups.contains(cameraItem.group)
+                        {
+                            self.groups.append(cameraItem.group)
+                        }
+                        if !self.subgroups.contains(cameraItem.subGroup)
+                        {
+                            self.subgroups.append(cameraItem.subGroup)
+                        }
+                    }
+                    
+                    self.sidebarRootMenuData.append([self.groups[0]])
+                    self.sidebarRootMenuData.append([self.subgroups[0]])
+                    self.sortCameras()
+                }
+                
+                if self.camerasDelegate != nil
+                {
+                    DispatchQueue.main.async {
+                        self.camerasDelegate.dataUpdated()
+                    }
+                }
+            }
+            catch _
+            {
+                self.camerasDelegate.dataUpdateFailed!(error: "JSON conversion failed! You can contact to the Administrator, or wait until a reload.")
+            }
+        }
+    }
+    
     func sortTVs()
     {
         tvItems.sort { (itemA, itemB) ->Bool in
             itemA.name < itemB.name
+        }
+    }
+    
+    func sortCameras()
+    {
+        cameraItems.sort { (itemA, itemB) ->Bool in
+            itemA.cameraName < itemB.cameraName
         }
     }
     
@@ -119,5 +194,42 @@ class DataManager: NSObject
     func getTVItems() -> TVItems
     {
         return self.tvItems
+    }
+    
+    // MARK: Sidebar group and subgroup items
+    
+    func sidebarRootMenuItems() -> [[String]]
+    {
+        return self.sidebarRootMenuData
+    }
+    
+    func numberOfGroupInList() -> Int
+    {
+        return (self.groups != nil ? self.groups.count : 0)
+    }
+    
+    func groupItemAtIndex(itemAtIndex index: Int) -> String!
+    {
+        if index < self.groups.count
+        {
+            return self.groups[index]
+        }
+        
+        return nil
+    }
+    
+    func numberOfSubGroupInList() -> Int
+    {
+        return (self.subgroups != nil ? self.subgroups.count : 0)
+    }
+    
+    func subGroupItemAtIndex(itemAtIndex index: Int) -> String!
+    {
+        if index < self.subgroups.count
+        {
+            return self.subgroups[index]
+        }
+        
+        return nil
     }
 }

@@ -9,12 +9,11 @@ import Foundation
 
 struct CameraItemVO:Decodable
 {
-    let name:String!
-    let message:String!
-    let entries:[String]!
-    let critical:Bool!
-    
-    func alertTitle() -> String {
-        return name + " (" + ((message != nil) ? message : "") + ")"
-    }
+    let dominoUniversalID:String!
+    let cameraID:String!
+    let cameraName:String!
+    let url:String!
+    let frequency:Int!
+    let group:String!
+    let subGroup:String!
 }

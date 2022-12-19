@@ -38,22 +38,23 @@ class SidebarRootMenuViewController: UITableViewController
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return DataManager.getInstance.sidebarRootMenuItems().count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return categories.count
+        return DataManager.getInstance.sidebarRootMenuItems()[section].count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "rootMenuTableCell", for: indexPath)
-        cell.textLabel?.text = self.categories[indexPath.row].title
+        cell.textLabel?.text = DataManager.getInstance.sidebarRootMenuItems()[indexPath.section][indexPath.row]
+        cell.accessoryType = .disclosureIndicator
         
         return cell
     }
-    
+       
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
         if (section == 0)
