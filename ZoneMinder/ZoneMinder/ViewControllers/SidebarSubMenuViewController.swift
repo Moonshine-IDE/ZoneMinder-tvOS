@@ -1,20 +1,14 @@
 //
-//  SidebarRootMenuViewController.swift
+//  SidebarSubMenuViewController.swift
 //  ZoneMinder
 //
-//  Created by Devsena on 16/12/22.
+//  Created by Devsena on 19/12/22.
 //
 
+import Foundation
 import UIKit
 
-struct SettingsVO
-{
-    let title:String!
-    var value:String!
-    let requireIndicator:Bool!
-}
-
-class SidebarRootMenuViewController: UITableViewController
+class SidebarSubMenuViewController: UITableViewController
 {
     var categories = [SettingsVO]()
     
@@ -48,7 +42,7 @@ class SidebarRootMenuViewController: UITableViewController
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "rootMenuTableCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "subMenuTableCell", for: indexPath)
         cell.textLabel?.text = self.categories[indexPath.row].title
         
         return cell
@@ -56,12 +50,7 @@ class SidebarRootMenuViewController: UITableViewController
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
-        if (section == 0)
-        {
-            return "Group"
-        }
-            
-        return "SubGroup"
+        return "Location"
     }
     
     /*

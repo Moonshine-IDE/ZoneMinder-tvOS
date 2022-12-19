@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A00DD92295037B8000D66F6 /* SidebarSubMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DD91295037B8000D66F6 /* SidebarSubMenuViewController.swift */; };
+		4A00DD94295039BB000D66F6 /* ListingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DD93295039BB000D66F6 /* ListingViewController.swift */; };
+		4A00DD962950406A000D66F6 /* CameraCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DD952950406A000D66F6 /* CameraCollectionViewCell.swift */; };
+		4A00DD9829504169000D66F6 /* MJPEGStreamLib in Resources */ = {isa = PBXBuildFile; fileRef = 4A00DD9729504169000D66F6 /* MJPEGStreamLib */; };
+		4A00DD9B295045BA000D66F6 /* MJPEGStreamLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DD9A295045BA000D66F6 /* MJPEGStreamLib.swift */; };
 		4A4B907A2948A6E800CCF938 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4B90792948A6E800CCF938 /* DataManager.swift */; };
 		4A4B907D2948A86E00CCF938 /* TVItemVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4B907C2948A86E00CCF938 /* TVItemVO.swift */; };
 		4A4B907F2948A89B00CCF938 /* CameraItemVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4B907E2948A89B00CCF938 /* CameraItemVO.swift */; };
@@ -43,6 +48,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4A00DD91295037B8000D66F6 /* SidebarSubMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSubMenuViewController.swift; sourceTree = "<group>"; };
+		4A00DD93295039BB000D66F6 /* ListingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingViewController.swift; sourceTree = "<group>"; };
+		4A00DD952950406A000D66F6 /* CameraCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCollectionViewCell.swift; sourceTree = "<group>"; };
+		4A00DD9729504169000D66F6 /* MJPEGStreamLib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MJPEGStreamLib; sourceTree = "<group>"; };
+		4A00DD9A295045BA000D66F6 /* MJPEGStreamLib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MJPEGStreamLib.swift; sourceTree = "<group>"; };
 		4A4B90792948A6E800CCF938 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		4A4B907C2948A86E00CCF938 /* TVItemVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVItemVO.swift; sourceTree = "<group>"; };
 		4A4B907E2948A89B00CCF938 /* CameraItemVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraItemVO.swift; sourceTree = "<group>"; };
@@ -94,6 +104,8 @@
 			children = (
 				4AD9D9432940994200BC1EE8 /* WelcomeController.swift */,
 				4AB3FDAF294C93F600875B8D /* SidebarRootMenuViewController.swift */,
+				4A00DD91295037B8000D66F6 /* SidebarSubMenuViewController.swift */,
+				4A00DD93295039BB000D66F6 /* ListingViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -128,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				4AB3FDAA294C7C5400875B8D /* TVTableCellRenderer.swift */,
+				4A00DD952950406A000D66F6 /* CameraCollectionViewCell.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -143,6 +156,7 @@
 		4AD9D9352940994200BC1EE8 = {
 			isa = PBXGroup;
 			children = (
+				4A00DD9A295045BA000D66F6 /* MJPEGStreamLib.swift */,
 				4AD9D9402940994200BC1EE8 /* ZoneMinder */,
 				4AD9D9542940994300BC1EE8 /* ZoneMinderTests */,
 				4AD9D95E2940994300BC1EE8 /* ZoneMinderUITests */,
@@ -163,6 +177,7 @@
 		4AD9D9402940994200BC1EE8 /* ZoneMinder */ = {
 			isa = PBXGroup;
 			children = (
+				4A00DD9729504169000D66F6 /* MJPEGStreamLib */,
 				4AB3FDAC294C928200875B8D /* Utils */,
 				4AB3FDA9294C7C2300875B8D /* Renderers */,
 				4A9C9E9F2949FC3B0051C695 /* Resources */,
@@ -298,6 +313,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A00DD9829504169000D66F6 /* MJPEGStreamLib in Resources */,
 				4A9C9EA12949FC640051C695 /* AllowedTVs.json in Resources */,
 				4AD9D94C2940994300BC1EE8 /* LaunchScreen.storyboard in Resources */,
 				4A9C9EA32949FC6B0051C695 /* Cameras.json in Resources */,
@@ -331,10 +347,14 @@
 				4AD9D9442940994200BC1EE8 /* WelcomeController.swift in Sources */,
 				4AB3FDAE294C928F00875B8D /* UIExtensions.swift in Sources */,
 				4AB3FDAB294C7C5400875B8D /* TVTableCellRenderer.swift in Sources */,
+				4A00DD92295037B8000D66F6 /* SidebarSubMenuViewController.swift in Sources */,
 				4A4B907A2948A6E800CCF938 /* DataManager.swift in Sources */,
 				4AD9D9422940994200BC1EE8 /* AppDelegate.swift in Sources */,
 				4A4B907F2948A89B00CCF938 /* CameraItemVO.swift in Sources */,
 				4A4B907D2948A86E00CCF938 /* TVItemVO.swift in Sources */,
+				4A00DD94295039BB000D66F6 /* ListingViewController.swift in Sources */,
+				4A00DD962950406A000D66F6 /* CameraCollectionViewCell.swift in Sources */,
+				4A00DD9B295045BA000D66F6 /* MJPEGStreamLib.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
