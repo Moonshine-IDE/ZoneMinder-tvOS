@@ -7,33 +7,13 @@
 
 import UIKit
 
-struct SettingsVO
-{
-    let title:String!
-    var value:String!
-    let requireIndicator:Bool!
-}
-
 class SidebarRootMenuViewController: UITableViewController
 {
-    var categories = [SettingsVO]()
-    
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        categories.append(
-            SettingsVO(title: "Non-critical Alerts", value: "ON", requireIndicator: true)
-        )
-        categories.append(
-            SettingsVO(title: "Refresh in Every", value: "60 Seconds", requireIndicator: true)
-        )
-        categories.append(
-            SettingsVO(title: "Auto-refresh Data", value: "ON", requireIndicator: true)
-        )
     }
-    
-    
+       
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {

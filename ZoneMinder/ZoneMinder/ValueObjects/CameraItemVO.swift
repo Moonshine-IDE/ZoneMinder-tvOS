@@ -12,7 +12,7 @@ struct CameraItemVO:Decodable
     let dominoUniversalID:String!
     let cameraID:String!
     let cameraName:String!
-    let url:String!
+    var url:String!
     let frequency:Int!
     let group:String!
     let subGroup:String!

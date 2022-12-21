@@ -8,6 +8,13 @@
 import Foundation
 import UIKit
 
+struct SettingsVO
+{
+    let title:String!
+    var value:String!
+    let requireIndicator:Bool!
+}
+
 class SidebarSubMenuViewController: UITableViewController
 {
     var categories = [SettingsVO]()
@@ -90,7 +97,7 @@ class SidebarSubMenuViewController: UITableViewController
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        self.navigationController?.pushViewController(UIStoryboard.subMenuViewController()!, animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     override var preferredFocusEnvironments: [UIFocusEnvironment]
