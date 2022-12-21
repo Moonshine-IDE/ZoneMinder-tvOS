@@ -17,21 +17,11 @@ struct SettingsVO
 
 class SidebarSubMenuViewController: UITableViewController
 {
-    var categories = [SettingsVO]()
+    var groups:[Group]!
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        categories.append(
-            SettingsVO(title: "Non-critical Alerts", value: "ON", requireIndicator: true)
-        )
-        categories.append(
-            SettingsVO(title: "Refresh in Every", value: "60 Seconds", requireIndicator: true)
-        )
-        categories.append(
-            SettingsVO(title: "Auto-refresh Data", value: "ON", requireIndicator: true)
-        )
     }
     
     
@@ -44,13 +34,13 @@ class SidebarSubMenuViewController: UITableViewController
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return categories.count
+        return groups.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "subMenuTableCell", for: indexPath)
-        cell.textLabel?.text = self.categories[indexPath.row].title
+        cell.textLabel?.text = groups[indexPath.row].name
         
         return cell
     }

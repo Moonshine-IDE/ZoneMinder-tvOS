@@ -29,7 +29,7 @@ class SidebarRootMenuViewController: UITableViewController
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "rootMenuTableCell", for: indexPath)
-        cell.textLabel?.text = DataManager.getInstance.sidebarRootMenuItems()[indexPath.section][indexPath.row]
+        cell.textLabel?.text = DataManager.getInstance.sidebarRootMenuItems()[indexPath.section][indexPath.row].name
         cell.accessoryType = .disclosureIndicator
         
         return cell
@@ -82,7 +82,10 @@ class SidebarRootMenuViewController: UITableViewController
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        self.navigationController?.pushViewController(UIStoryboard.subMenuViewController()!, animated: true)
+        let subMenu = UIStoryboard.subMenuViewController() as! SidebarSubMenuViewController
+        subMenu.groups = (indexPath.section == 0) ? DataManager.getInstance.groups : DataManager.getInstance.sidebarRootMenuItems()[0][0].subGroups
+        
+        self.navigationController?.pushViewController(subMenu, animated: true)
     }
     
     override var preferredFocusEnvironments: [UIFocusEnvironment]

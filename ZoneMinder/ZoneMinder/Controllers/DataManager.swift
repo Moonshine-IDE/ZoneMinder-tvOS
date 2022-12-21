@@ -31,15 +31,15 @@ class DataManager: NSObject
     
     var countSuccess:Int = 0
     var countFailure:Int = 0
+    var groups:[Group]!
     
     weak var tvsDelegate: TVsDataManagerDelegates!
     weak var camerasDelegate:CamerasDataManagerDelegates!
     
     fileprivate var tvItems:TVItems!
     fileprivate var cameraItems:CameraItems!
-    fileprivate var groups:[String]!
-    fileprivate var subgroups:[String]!
-    fileprivate var sidebarRootMenuData:[[String]]!
+    fileprivate var cameraItemsNonFiltered:CameraItems!
+    fileprivate var sidebarRootMenuData:[[Group]]!
     
     class var getInstance: DataManager
     {
@@ -98,9 +98,8 @@ class DataManager: NSObject
     func requestCamerasData()
     {
         self.cameraItems = [CameraItemVO]()
-        self.groups = [String]()
-        self.subgroups = [String]()
-        self.sidebarRootMenuData = [[String]]()
+        self.groups = [Group]()
+        self.sidebarRootMenuData = [[Group]]()
         
         // local resource
         if let localCameraFile = Bundle.main.path(forResource: "Cameras", ofType: "json")
@@ -131,18 +130,13 @@ class DataManager: NSObject
                         )
                         
                         self.cameraItems.append(cameraItem)
-                        if !self.groups.contains(cameraItem.group)
-                        {
-                            self.groups.append(cameraItem.group)
-                        }
-                        if !self.subgroups.contains(cameraItem.subGroup)
-                        {
-                            self.subgroups.append(cameraItem.subGroup)
-                        }
+                        self.parseGroupSubgroups(cameraItem: cameraItem)
                     }
                     
                     self.sidebarRootMenuData.append([self.groups[0]])
-                    self.sidebarRootMenuData.append([self.subgroups[0]])
+                    self.sidebarRootMenuData.append([self.groups[0].subGroups[0]])
+                    Constants.selectedGroup = self.groups[0]
+                    Constants.selectedSubGroup = self.groups[0].subGroups[0]
                     self.sortCameras()
                 }
                 
@@ -174,6 +168,65 @@ class DataManager: NSObject
         }
     }
     
+    func parseGroupSubgroups(cameraItem:CameraItemVO)
+    {
+        var tmpGroup:Group!
+        for group in self.groups
+        {
+            if group.name.lowercased() == cameraItem.group.lowercased()
+            {
+                // get group if already exists
+                tmpGroup = group
+                break
+            }
+        }
+        
+        // if group is not available
+        if tmpGroup == nil
+        {
+            tmpGroup = Group()
+            tmpGroup.name = cameraItem.group
+            tmpGroup.subGroups = []
+            self.groups.append(tmpGroup)
+        }
+        
+        // parse for subgroups
+        var tmpSubgroup:Group!
+        for subgrouop in tmpGroup.subGroups
+        {
+            if (subgrouop.name.lowercased() == cameraItem.subGroup.lowercased())
+            {
+                tmpSubgroup = subgrouop
+                break
+            }
+        }
+        
+        // in case subgroup is not exists
+        if tmpSubgroup == nil
+        {
+            var tmpSubgroup = Group()
+            tmpSubgroup.name = cameraItem.subGroup
+            tmpGroup.subGroups.append(tmpSubgroup)
+        }
+    }
+    
+    func filterCriticalAlerts()
+    {
+        cameraItemsNonFiltered = self.cameraItems
+        cameraItems = cameraItems.filter { (cameraItem) -> Bool in
+            cameraItem.group == Constants.selectedGroup.name && cameraItem.subGroup == Constants.selectedSubGroup.name
+        }
+    }
+    
+    func releaseFilterCriticalAlerts()
+    {
+        if (cameraItemsNonFiltered != nil)
+        {
+            self.cameraItems = self.cameraItemsNonFiltered
+            cameraItemsNonFiltered = nil
+        }
+    }
+    
     // MARK: Methods practical for a table-view
     
     func numberOfTVsInList() -> Int
@@ -198,7 +251,7 @@ class DataManager: NSObject
     
     // MARK: Sidebar group and subgroup items
     
-    func sidebarRootMenuItems() -> [[String]]
+    func sidebarRootMenuItems() -> [[Group]]
     {
         return self.sidebarRootMenuData
     }
@@ -208,26 +261,11 @@ class DataManager: NSObject
         return (self.groups != nil ? self.groups.count : 0)
     }
     
-    func groupItemAtIndex(itemAtIndex index: Int) -> String!
+    func groupItemAtIndex(itemAtIndex index: Int) -> Group!
     {
         if index < self.groups.count
         {
             return self.groups[index]
-        }
-        
-        return nil
-    }
-    
-    func numberOfSubGroupInList() -> Int
-    {
-        return (self.subgroups != nil ? self.subgroups.count : 0)
-    }
-    
-    func subGroupItemAtIndex(itemAtIndex index: Int) -> String!
-    {
-        if index < self.subgroups.count
-        {
-            return self.subgroups[index]
         }
         
         return nil
