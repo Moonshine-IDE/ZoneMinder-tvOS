@@ -7,11 +7,20 @@
 
 import UIKit
 
+enum MenuType:String
+{
+    case GROUP = "Group"
+    case SUBGROUP = "Subgroup"
+}
+
 class SidebarRootMenuViewController: UITableViewController
 {
+    fileprivate var requireFocusedSection = 0
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        self.tableView.remembersLastFocusedIndexPath = true
     }
        
     // MARK: - Table view data source
@@ -84,6 +93,8 @@ class SidebarRootMenuViewController: UITableViewController
     {
         let subMenu = UIStoryboard.subMenuViewController() as! SidebarSubMenuViewController
         subMenu.groups = (indexPath.section == 0) ? DataManager.getInstance.groups : DataManager.getInstance.sidebarRootMenuItems()[0][0].subGroups
+        subMenu.type = (indexPath.section == 0) ? .GROUP : .SUBGROUP
+        subMenu.delegates = self
         
         self.navigationController?.pushViewController(subMenu, animated: true)
     }
@@ -95,6 +106,33 @@ class SidebarRootMenuViewController: UITableViewController
     
     override func indexPathForPreferredFocusedView(in tableView: UITableView) -> IndexPath?
     {
-        return IndexPath(row: 0, section: 0)
+        return IndexPath(row: 0, section: self.requireFocusedSection)
+    }
+}
+
+extension SidebarRootMenuViewController: SidebarSubMenuViewControllerDelegates
+{
+    func onSubMenuSelected(item:Group, type:MenuType)
+    {
+        // this will ensure the correct menu to be
+        // focused when collection reloaded next
+        self.requireFocusedSection = type == .SUBGROUP ? 1 : 0
+        
+        if (type == .GROUP)
+        {
+            DataManager.getInstance.rebuildSidebarMenu(group: item, subGroup: DataManager.getInstance.sidebarRootMenuItems()[1][0])
+        }
+        else
+        {
+            DataManager.getInstance.rebuildSidebarMenu(group: DataManager.getInstance.sidebarRootMenuItems()[0][0], subGroup: item)
+        }
+        
+        self.tableView.reloadData()
+        DataManager.getInstance.filterCamerasByGroupSubGroups()
+        DispatchQueue.main.async {
+            self.tableView.selectRow(at: IndexPath(row: 0, section: self.requireFocusedSection), animated: false, scrollPosition: .none)
+            self.tableView.setNeedsFocusUpdate()
+            self.tableView.updateFocusIfNeeded()
+        }
     }
 }

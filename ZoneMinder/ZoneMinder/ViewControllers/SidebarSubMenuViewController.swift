@@ -8,16 +8,16 @@
 import Foundation
 import UIKit
 
-struct SettingsVO
+protocol SidebarSubMenuViewControllerDelegates: AnyObject
 {
-    let title:String!
-    var value:String!
-    let requireIndicator:Bool!
+    func onSubMenuSelected(item:Group, type:MenuType)
 }
 
 class SidebarSubMenuViewController: UITableViewController
 {
     var groups:[Group]!
+    var type:MenuType!
+    var delegates:SidebarSubMenuViewControllerDelegates!
     
     override func viewDidLoad()
     {
@@ -87,6 +87,7 @@ class SidebarSubMenuViewController: UITableViewController
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
+        self.delegates.onSubMenuSelected(item: self.groups[indexPath.row], type: self.type)
         self.navigationController?.popViewController(animated: true)
     }
     

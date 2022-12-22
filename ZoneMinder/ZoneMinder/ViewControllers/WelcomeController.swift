@@ -86,6 +86,7 @@ extension WelcomeController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
+        Constants.selectedTV = self.dataManager.tvItemAtIndex(itemAtIndex: indexPath.row)
         DataManager.getInstance.requestCamerasData()
         present(UIStoryboard.contentViewController()!, animated: false)
     }

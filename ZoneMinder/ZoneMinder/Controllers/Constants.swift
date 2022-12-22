@@ -11,4 +11,5 @@ class Constants: NSObject
 {
     static var selectedGroup:Group!
     static var selectedSubGroup:Group!
+    static var selectedTV:TVItemVO!
 }

@@ -14,8 +14,6 @@ class ListingViewController: UIViewController
     @IBOutlet weak var cameraDetails1: UILabel!
     @IBOutlet weak var cameraDetails2: UILabel!
     
-    var testCollection = [CameraItemVO]()
-    
     fileprivate let cellOffset: CGFloat = 1.4
     fileprivate var collectionCellIdentifier = "cameraListingCell"
     
@@ -23,24 +21,12 @@ class ListingViewController: UIViewController
     {
         super.viewDidLoad()
         
+        DataManager.getInstance.camerasDelegate = self
+        
         listingCollectionView.register(CameraCollectionViewCell.self, forCellWithReuseIdentifier: collectionCellIdentifier)
         listingCollectionView.delegate = self
         listingCollectionView.dataSource = self
         listingCollectionView.backgroundColor = .clear
-        
-        testCollection.append(CameraItemVO(dominoUniversalID: "", cameraID: "ABCD", cameraName: "Camera A", url: "", frequency: 30, group: "Group A", subGroup: "SubGroup A"))
-        testCollection.append(CameraItemVO(dominoUniversalID: "", cameraID: "ABCD", cameraName: "Camera B", url: "", frequency: 30, group: "Group A", subGroup: "SubGroup A"))
-        testCollection.append(CameraItemVO(dominoUniversalID: "", cameraID: "ABCD", cameraName: "Camera C", url: "", frequency: 30, group: "Group A", subGroup: "SubGroup A"))
-        testCollection.append(CameraItemVO(dominoUniversalID: "", cameraID: "ABCD", cameraName: "Camera D", url: "", frequency: 30, group: "Group A", subGroup: "SubGroup A"))
-        testCollection.append(CameraItemVO(dominoUniversalID: "", cameraID: "ABCD", cameraName: "Camera E", url: "", frequency: 30, group: "Group A", subGroup: "SubGroup A"))
-        testCollection.append(CameraItemVO(dominoUniversalID: "", cameraID: "ABCD", cameraName: "Camera F", url: "", frequency: 30, group: "Group A", subGroup: "SubGroup A"))
-        testCollection.append(CameraItemVO(dominoUniversalID: "", cameraID: "ABCD", cameraName: "Camera G", url: "", frequency: 30, group: "Group A", subGroup: "SubGroup A"))
-        testCollection.append(CameraItemVO(dominoUniversalID: "", cameraID: "ABCD", cameraName: "Camera H", url: "", frequency: 30, group: "Group A", subGroup: "SubGroup A"))
-        testCollection.append(CameraItemVO(dominoUniversalID: "", cameraID: "ABCD", cameraName: "Camera I", url: "", frequency: 30, group: "Group A", subGroup: "SubGroup A"))
-        testCollection.append(CameraItemVO(dominoUniversalID: "", cameraID: "ABCD", cameraName: "Camera J", url: "", frequency: 30, group: "Group A", subGroup: "SubGroup A"))
-        testCollection.append(CameraItemVO(dominoUniversalID: "", cameraID: "ABCD", cameraName: "Camera K", url: "", frequency: 30, group: "Group A", subGroup: "SubGroup A"))
-        testCollection.append(CameraItemVO(dominoUniversalID: "", cameraID: "ABCD", cameraName: "Camera L", url: "", frequency: 30, group: "Group A", subGroup: "SubGroup A"))
-        
         
         //let layout = UICollectionViewFlowLayout()
         //layout.scrollDirection = .vertical
@@ -73,14 +59,14 @@ extension ListingViewController:UICollectionViewDelegate, UICollectionViewDataSo
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return testCollection.count
+        return DataManager.getInstance.numberOfCamerasInList()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         let cell = self.listingCollectionView.dequeueReusableCell(withReuseIdentifier: collectionCellIdentifier, for: indexPath) as! CameraCollectionViewCell
         
-        cell.title = testCollection[indexPath.row].cameraName
+        cell.title = DataManager.getInstance.cameraItemAtIndex(itemAtIndex: indexPath.row).cameraName
         cell.cameraURL = String.localizedStringWithFormat("https://zm-node-s2-01.prominic.net/zm/cgi-bin/nph-zms?scale=0&mode=jpeg&maxfps=30&monitor=90&user=Prominic&connkey=6838%@&rand=1666630366", String(indexPath.row))
                 
         return cell
@@ -89,7 +75,7 @@ extension ListingViewController:UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         let cameraFSView = UIStoryboard.cameraFSViewController() as! CameraFullscreenViewController
-        cameraFSView.camera = self.testCollection[indexPath.row]
+        cameraFSView.camera = DataManager.getInstance.cameraItemAtIndex(itemAtIndex: indexPath.row)
         
         present(cameraFSView, animated: false)
     }
@@ -99,7 +85,7 @@ extension ListingViewController:UICollectionViewDelegate, UICollectionViewDataSo
         if collectionView == self.listingCollectionView
         {
             guard (context.nextFocusedIndexPath != nil) else {return}
-            self.updateCameraDetailsLabels(item: self.testCollection[context.nextFocusedIndexPath!.row])
+            self.updateCameraDetailsLabels(item: DataManager.getInstance.cameraItemAtIndex(itemAtIndex: context.nextFocusedIndexPath!.row))
         }
     }
 }
@@ -125,5 +111,13 @@ extension ListingViewController: UICollectionViewDelegateFlowLayout
         let thumbWidth = CGFloat(320)
         let thumbHeight = CGFloat(thumbWidth * 0.7)
         return CGSize(width: thumbWidth, height: thumbHeight)
+    }
+}
+
+extension ListingViewController: CamerasDataManagerDelegates
+{
+    func dataUpdated()
+    {
+        self.listingCollectionView.reloadData()
     }
 }
