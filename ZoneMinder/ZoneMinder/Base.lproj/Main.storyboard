@@ -122,7 +122,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gXr-LA-1Cq">
-                                <rect key="frame" x="60.5" y="85" width="1145" height="137"/>
+                                <rect key="frame" x="60.5" y="75" width="1145" height="137"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Camera in focus:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVo-mw-1eF">
                                         <rect key="frame" x="0.0" y="8" width="1145" height="28"/>
@@ -172,7 +172,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="lA0-II-SRy"/>
                         <constraints>
-                            <constraint firstItem="gXr-LA-1Cq" firstAttribute="top" secondItem="lA0-II-SRy" secondAttribute="top" constant="-120" id="OMV-EN-9lf"/>
+                            <constraint firstItem="gXr-LA-1Cq" firstAttribute="top" secondItem="lA0-II-SRy" secondAttribute="top" constant="-130" id="OMV-EN-9lf"/>
                             <constraint firstItem="HIu-fB-nkq" firstAttribute="top" secondItem="Asy-Yq-IwC" secondAttribute="top" id="Rse-wk-hee"/>
                             <constraint firstItem="HIu-fB-nkq" firstAttribute="trailing" secondItem="lA0-II-SRy" secondAttribute="trailing" id="WaX-gc-fhq"/>
                             <constraint firstItem="HIu-fB-nkq" firstAttribute="leading" secondItem="lA0-II-SRy" secondAttribute="leading" id="iwO-cM-xw7"/>

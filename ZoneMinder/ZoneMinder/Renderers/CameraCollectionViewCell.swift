@@ -80,6 +80,24 @@ class CameraCollectionViewCell:UICollectionViewCell
         cameraImageView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: titleImageViewHeight - 20)
         titleLabel.frame = CGRect(x: 0, y: cameraImageView.frame.maxY + 10, width: bounds.width, height: labelHeight).integral
     }
+    
+    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator)
+    {
+        super.didUpdateFocus(in: context, with: coordinator)
+        
+        if context.nextFocusedView == self
+        {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.titleLabel.isHidden = true
+            })
+        }
+        else
+        {
+            UIView.animate(withDuration: 0.2) {
+                self.titleLabel.isHidden = false
+            }
+        }
+    }
 
     internal func setupUI()
     {

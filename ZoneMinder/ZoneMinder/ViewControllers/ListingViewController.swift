@@ -14,7 +14,7 @@ class ListingViewController: UIViewController
     @IBOutlet weak var cameraDetails1: UILabel!
     @IBOutlet weak var cameraDetails2: UILabel!
     
-    fileprivate let cellOffset: CGFloat = 1.4
+    fileprivate let cellOffset: CGFloat = 0
     fileprivate var collectionCellIdentifier = "cameraListingCell"
     
     override func viewDidLoad()
@@ -27,26 +27,7 @@ class ListingViewController: UIViewController
         listingCollectionView.delegate = self
         listingCollectionView.dataSource = self
         listingCollectionView.backgroundColor = .clear
-        
-        //let layout = UICollectionViewFlowLayout()
-        //layout.scrollDirection = .vertical
-        //listingCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
     }
-    
-    /*override func viewDidLayoutSubviews()
-    {
-        super.viewDidLayoutSubviews()
-
-        //listingCollectionView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
-        
-        let thumbWidth = CGFloat(320)
-        let thumbHeight = CGFloat(thumbWidth * 0.8)
-        let itemSize = CGSize(width: thumbWidth, height: thumbHeight)
-        
-        //let itemSize = CGSize(width: self.view.bounds.width * 0.18, height: 160)
-        listingCollectionView.contentSize = CGSize(width: self.view.bounds.width - 100, height: self.view.bounds.height)
-        (listingCollectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.itemSize = itemSize
-    }*/
     
     fileprivate func updateCameraDetailsLabels(item:CameraItemVO)
     {
@@ -94,21 +75,23 @@ extension ListingViewController: UICollectionViewDelegateFlowLayout
 {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
     {
-        return UIEdgeInsets(top: cellOffset / 2, left: cellOffset, bottom: cellOffset / 2, right: cellOffset)
+        return UIEdgeInsets(top: 0, left: cellOffset, bottom: 10, right: cellOffset)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return cellOffset
-      }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
+    {
+        return 0
+    }
       
-      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-          return cellOffset
-      }
-    
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat
+    {
+        return 10
+    }
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        let thumbWidth = CGFloat(320)
+        let collectionViewWidth = self.listingCollectionView.bounds.width
+        let thumbWidth = (collectionViewWidth / 3) - 30
         let thumbHeight = CGFloat(thumbWidth * 0.7)
         return CGSize(width: thumbWidth, height: thumbHeight)
     }
