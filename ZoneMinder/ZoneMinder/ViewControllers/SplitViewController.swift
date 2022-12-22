@@ -2,7 +2,7 @@
 //  SplitViewController.swift
 //  ZoneMinder
 //
-//  Created by Santanu Karar on 22/12/22.
+//  Created by Devsena on 22/12/22.
 //
 
 import Foundation
