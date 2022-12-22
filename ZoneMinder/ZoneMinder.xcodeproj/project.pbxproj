@@ -20,6 +20,7 @@
 		4AB3FDAB294C7C5400875B8D /* TVTableCellRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB3FDAA294C7C5400875B8D /* TVTableCellRenderer.swift */; };
 		4AB3FDAE294C928F00875B8D /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB3FDAD294C928F00875B8D /* UIExtensions.swift */; };
 		4AB3FDB0294C93F600875B8D /* SidebarRootMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB3FDAF294C93F600875B8D /* SidebarRootMenuViewController.swift */; };
+		4AC2142329545C2B00FAD9B7 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC2142229545C2B00FAD9B7 /* SplitViewController.swift */; };
 		4AC9640C295305EA000F0EFB /* CameraFullscreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC9640B295305EA000F0EFB /* CameraFullscreenViewController.swift */; };
 		4AC9640E295325E0000F0EFB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC9640D295325E0000F0EFB /* Constants.swift */; };
 		4AC9641429532FB7000F0EFB /* GroupVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC9641329532FB7000F0EFB /* GroupVO.swift */; };
@@ -64,6 +65,7 @@
 		4AB3FDAA294C7C5400875B8D /* TVTableCellRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVTableCellRenderer.swift; sourceTree = "<group>"; };
 		4AB3FDAD294C928F00875B8D /* UIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
 		4AB3FDAF294C93F600875B8D /* SidebarRootMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRootMenuViewController.swift; sourceTree = "<group>"; };
+		4AC2142229545C2B00FAD9B7 /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		4AC9640B295305EA000F0EFB /* CameraFullscreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFullscreenViewController.swift; sourceTree = "<group>"; };
 		4AC9640D295325E0000F0EFB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4AC9641329532FB7000F0EFB /* GroupVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupVO.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				4A00DD91295037B8000D66F6 /* SidebarSubMenuViewController.swift */,
 				4A00DD93295039BB000D66F6 /* ListingViewController.swift */,
 				4AC9640B295305EA000F0EFB /* CameraFullscreenViewController.swift */,
+				4AC2142229545C2B00FAD9B7 /* SplitViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				4AC9641429532FB7000F0EFB /* GroupVO.swift in Sources */,
 				4A00DD962950406A000D66F6 /* CameraCollectionViewCell.swift in Sources */,
 				4A00DD9B295045BA000D66F6 /* MJPEGStreamLib.swift in Sources */,
+				4AC2142329545C2B00FAD9B7 /* SplitViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -118,13 +118,13 @@
                         <viewControllerLayoutGuide type="bottom" id="sAY-Zs-Jex"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Asy-Yq-IwC">
-                        <rect key="frame" x="0.0" y="0.0" width="1205" height="1080"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1205.5" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gXr-LA-1Cq">
                                 <rect key="frame" x="60.5" y="85" width="1145" height="137"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Present Camera:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVo-mw-1eF">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Camera in focus:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVo-mw-1eF">
                                         <rect key="frame" x="0.0" y="8" width="1145" height="28"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -206,6 +206,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                             </imageView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="ZX4-M2-VKY"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="YAZ-s5-eWa" secondAttribute="trailing" id="489-ft-YXA"/>
                             <constraint firstItem="YAZ-s5-eWa" firstAttribute="top" secondItem="rtF-Ww-4QJ" secondAttribute="top" id="A4b-0V-Mm4"/>
@@ -303,7 +304,7 @@
         <!--Split View Controller-->
         <scene sceneID="c1R-3Q-yPN">
             <objects>
-                <splitViewController storyboardIdentifier="listingZoneMinder" useStoryboardIdentifierAsRestorationIdentifier="YES" allowDoubleColumnStyle="YES" id="a8L-Ez-Aqq" sceneMemberID="viewController">
+                <splitViewController storyboardIdentifier="listingZoneMinder" useStoryboardIdentifierAsRestorationIdentifier="YES" allowDoubleColumnStyle="YES" id="a8L-Ez-Aqq" customClass="SplitViewController" customModule="ZoneMinder" customModuleProvider="target" sceneMemberID="viewController">
                     <size key="freeformSize" width="1920" height="1080"/>
                     <connections>
                         <segue destination="Rdn-TI-j9b" kind="relationship" relationship="masterViewController" id="eFL-S9-Qyd"/>

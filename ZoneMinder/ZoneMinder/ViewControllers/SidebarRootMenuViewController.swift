@@ -99,11 +99,6 @@ class SidebarRootMenuViewController: UITableViewController
         self.navigationController?.pushViewController(subMenu, animated: true)
     }
     
-    override var preferredFocusEnvironments: [UIFocusEnvironment]
-    {
-        return self.tableView.preferredFocusEnvironments
-    }
-    
     override func indexPathForPreferredFocusedView(in tableView: UITableView) -> IndexPath?
     {
         return IndexPath(row: 0, section: self.requireFocusedSection)
@@ -120,7 +115,7 @@ extension SidebarRootMenuViewController: SidebarSubMenuViewControllerDelegates
         
         if (type == .GROUP)
         {
-            DataManager.getInstance.rebuildSidebarMenu(group: item, subGroup: DataManager.getInstance.sidebarRootMenuItems()[1][0])
+            DataManager.getInstance.rebuildSidebarMenu(group: item, subGroup: item.subGroups[0])
         }
         else
         {
