@@ -32,7 +32,7 @@ class ListingViewController: UIViewController
     fileprivate func updateCameraDetailsLabels(item:CameraItemVO)
     {
         self.cameraDetails1.text = String.localizedStringWithFormat("%@ (%@)", item.cameraName, item.cameraID)
-        self.cameraDetails2.text = String.localizedStringWithFormat("Frequency: %@, DominoUniversalID: (%@)", String(item.frequency), item.dominoUniversalID)
+        self.cameraDetails2.text = String.localizedStringWithFormat("Frequency: %@", String(item.frequency))
     }
 }
 

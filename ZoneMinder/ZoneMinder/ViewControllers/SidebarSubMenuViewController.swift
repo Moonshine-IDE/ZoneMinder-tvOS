@@ -47,7 +47,7 @@ class SidebarSubMenuViewController: UITableViewController
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
-        return "Location"
+        return type == .GROUP ? "Groups" : "SubGroups"
     }
     
     /*
