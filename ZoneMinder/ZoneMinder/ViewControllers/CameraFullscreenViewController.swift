@@ -30,9 +30,17 @@ class CameraFullscreenViewController:UIViewController
             self.updateSpinnerView(show: false)
         }
         
-        let url = URL(string:"https://zm-node-s2-01.prominic.net/zm/cgi-bin/nph-zms?scale=0&mode=jpeg&maxfps=30&monitor=90&user=Prominic&connkey=683812&rand=16666303660")
+        let url = URL(string:"https://zm-node-s2-01.prominic.net/zm/cgi-bin/nph-zms?scale=0&mode=jpeg&maxfps=30&monitor=74&user=Prominic&connkey=683812&rand=16666303660")
         stream.contentURL = url
         stream.play()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool)
+    {
+        super.viewWillDisappear(animated)
+        
+        stream.stop()
+        stream = nil
     }
     
     fileprivate func updateSpinnerView(show:Bool)

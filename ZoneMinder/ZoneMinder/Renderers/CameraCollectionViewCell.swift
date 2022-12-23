@@ -80,6 +80,8 @@ class CameraCollectionViewCell:UICollectionViewCell
         self.setupUI()
     }
     
+    
+    
     override func layoutSubviews()
     {
         super.layoutSubviews()
@@ -95,9 +97,6 @@ class CameraCollectionViewCell:UICollectionViewCell
         detailView.trailingAnchor.constraint(equalTo: cameraImageView.trailingAnchor, constant: 0).isActive = true
         detailView.topAnchor.constraint(equalTo: cameraImageView.topAnchor, constant: 150).isActive = true
         detailView.bottomAnchor.constraint(equalTo: cameraImageView.bottomAnchor, constant: 0).isActive = true
-        detailView.contentScaleFactor = cameraImageView.contentScaleFactor
-        
-        
     }
     
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator)
@@ -106,17 +105,19 @@ class CameraCollectionViewCell:UICollectionViewCell
         
         if context.nextFocusedView == self
         {
-            UIView.animate(withDuration: 0.1, animations: { [self] in
+            UIView.animate(withDuration: 0.0, animations: { [self] in
                 self.titleLabel.isHidden = true
-                self.detailView.transform = self.detailView.transform.scaledBy(x: 1.185, y: 1.185)
-                self.detailView.contentScaleFactor = 1.185
+                //self.detailView.transform = self.detailView.transform.scaledBy(x: 1.185, y: 1.58)
+                
+                self.detailView.layoutIfNeeded()
+                //self.detailView.contentScaleFactor = 1.185
             })
         }
         else
         {
             UIView.animate(withDuration: 0.1) {
                 self.titleLabel.isHidden = false
-                self.detailView.transform = CGAffineTransform.identity
+                //self.detailView.transform = CGAffineTransform.identity
             }
         }
     }

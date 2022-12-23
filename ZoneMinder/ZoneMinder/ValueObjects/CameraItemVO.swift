@@ -16,4 +16,6 @@ struct CameraItemVO:Decodable
     let frequency:Int!
     let group:String!
     let subGroup:String!
+    
+    var isStop = false
 }

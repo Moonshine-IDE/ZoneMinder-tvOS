@@ -230,6 +230,16 @@ class DataManager: NSObject
         }
     }
     
+    func stopAllRunningStreams()
+    {
+        cameraItems = [CameraItemVO]()
+        
+        if self.camerasDelegate != nil
+        {            
+            self.camerasDelegate.dataUpdated()
+        }
+    }
+    
     func releaseCameraFilterByGroupSubGroups()
     {
         if (cameraItemsNonFiltered != nil)
