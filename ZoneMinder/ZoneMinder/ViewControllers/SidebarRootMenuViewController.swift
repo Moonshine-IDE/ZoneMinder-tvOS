@@ -16,11 +16,22 @@ enum MenuType:String
 class SidebarRootMenuViewController: UITableViewController
 {
     fileprivate var requireFocusedSection = 0
+
+    var sidebarDelegate:SplitViewControllerDelegates!
+    
+    @objc func onHideButtonPressed()
+    {
+        sidebarDelegate.hideSidebar()
+    }
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         self.tableView.remembersLastFocusedIndexPath = true
+        
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Hide in Left", style: .plain, target: self, action: #selector(onHideButtonPressed))
     }
        
     // MARK: - Table view data source
@@ -39,6 +50,7 @@ class SidebarRootMenuViewController: UITableViewController
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "rootMenuTableCell", for: indexPath)
         cell.textLabel?.text = DataManager.getInstance.sidebarRootMenuItems()[indexPath.section][indexPath.row].name
+        cell.insetsLayoutMarginsFromSafeArea = false
         cell.accessoryType = .disclosureIndicator
         
         return cell

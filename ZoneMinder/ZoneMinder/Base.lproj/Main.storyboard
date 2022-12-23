@@ -118,11 +118,11 @@
                         <viewControllerLayoutGuide type="bottom" id="sAY-Zs-Jex"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Asy-Yq-IwC">
-                        <rect key="frame" x="0.0" y="0.0" width="1205.5" height="1080"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1319.5" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gXr-LA-1Cq">
-                                <rect key="frame" x="60.5" y="75" width="1145" height="137"/>
+                                <rect key="frame" x="174.5" y="75" width="1145" height="137"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Camera in focus:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVo-mw-1eF">
                                         <rect key="frame" x="0.0" y="8" width="1145" height="28"/>
@@ -158,8 +158,14 @@
                                     <constraint firstAttribute="height" constant="137" id="v3L-lC-5uB"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Press Back button for Sidebar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMe-9w-md8">
+                                <rect key="frame" x="0.0" y="142" width="338" height="32"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="26"/>
+                                <color key="textColor" red="0.58072251080000004" green="0.066734083" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HIu-fB-nkq">
-                                <rect key="frame" x="0.0" y="0.0" width="1205.5" height="1080"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1319.5" height="1080"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="lea-hN-PlM">
                                     <size key="itemSize" width="784" height="784"/>
@@ -172,11 +178,13 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="lA0-II-SRy"/>
                         <constraints>
+                            <constraint firstItem="bMe-9w-md8" firstAttribute="leading" secondItem="lA0-II-SRy" secondAttribute="leading" id="Fe9-Sr-pzr"/>
                             <constraint firstItem="gXr-LA-1Cq" firstAttribute="top" secondItem="lA0-II-SRy" secondAttribute="top" constant="-130" id="OMV-EN-9lf"/>
                             <constraint firstItem="HIu-fB-nkq" firstAttribute="top" secondItem="Asy-Yq-IwC" secondAttribute="top" id="Rse-wk-hee"/>
                             <constraint firstItem="HIu-fB-nkq" firstAttribute="trailing" secondItem="lA0-II-SRy" secondAttribute="trailing" id="WaX-gc-fhq"/>
                             <constraint firstItem="HIu-fB-nkq" firstAttribute="leading" secondItem="lA0-II-SRy" secondAttribute="leading" id="iwO-cM-xw7"/>
                             <constraint firstItem="lA0-II-SRy" firstAttribute="trailing" secondItem="gXr-LA-1Cq" secondAttribute="trailing" id="k6A-Gi-aTg"/>
+                            <constraint firstItem="bMe-9w-md8" firstAttribute="top" secondItem="gXr-LA-1Cq" secondAttribute="bottom" constant="-70" id="liw-m0-dje"/>
                             <constraint firstAttribute="bottom" secondItem="HIu-fB-nkq" secondAttribute="bottom" id="vBc-81-hmE"/>
                         </constraints>
                     </view>
@@ -222,19 +230,19 @@
             </objects>
             <point key="canvasLocation" x="2328" y="3264"/>
         </scene>
-        <!--Categories-->
+        <!--Sidebar Root Menu View Controller-->
         <scene sceneID="7NV-UP-CQJ">
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="VCP-w2-7E1" customClass="SidebarRootMenuViewController" customModule="ZoneMinder" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" sectionHeaderHeight="66" sectionFooterHeight="66" id="etH-oT-zhE">
-                        <rect key="frame" x="0.0" y="0.0" width="714" height="1080"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" sectionHeaderHeight="66" sectionFooterHeight="66" contentViewInsetsToSafeArea="NO" id="etH-oT-zhE">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="rootMenuTableCell" id="09d-p3-MxJ">
-                                <rect key="frame" x="80" y="66" width="589" height="66"/>
+                            <tableViewCell contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" indentationWidth="10" reuseIdentifier="rootMenuTableCell" id="09d-p3-MxJ">
+                                <rect key="frame" x="0.0" y="66" width="555" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="09d-p3-MxJ" id="jW6-Ao-hJe">
-                                    <rect key="frame" x="0.0" y="0.0" width="589" height="66"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="555" height="66"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -244,8 +252,8 @@
                             <outlet property="delegate" destination="VCP-w2-7E1" id="uIm-gB-d00"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Categories" leftItemsSupplementBackButton="YES" id="iNP-H2-jFj">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="aeb-UY-9Vs"/>
+                    <navigationItem key="navigationItem" id="iNP-H2-jFj">
+                        <nil key="title"/>
                     </navigationItem>
                     <connections>
                         <outlet property="tabBarObservedScrollView" destination="etH-oT-zhE" id="VwM-K5-Z9V"/>
@@ -290,7 +298,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Rdn-TI-j9b" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="AwO-c9-2w3">
-                        <rect key="frame" x="0.0" y="60" width="714" height="145"/>
+                        <rect key="frame" x="0.0" y="60" width="600" height="145"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -304,7 +312,7 @@
         <!--Split View Controller-->
         <scene sceneID="c1R-3Q-yPN">
             <objects>
-                <splitViewController storyboardIdentifier="listingZoneMinder" useStoryboardIdentifierAsRestorationIdentifier="YES" allowDoubleColumnStyle="YES" id="a8L-Ez-Aqq" customClass="SplitViewController" customModule="ZoneMinder" customModuleProvider="target" sceneMemberID="viewController">
+                <splitViewController storyboardIdentifier="listingZoneMinder" useStoryboardIdentifierAsRestorationIdentifier="YES" allowDoubleColumnStyle="YES" maximumPrimaryColumnWidth="600" id="a8L-Ez-Aqq" customClass="SplitViewController" customModule="ZoneMinder" customModuleProvider="target" sceneMemberID="viewController">
                     <size key="freeformSize" width="1920" height="1080"/>
                     <connections>
                         <segue destination="Rdn-TI-j9b" kind="relationship" relationship="masterViewController" id="eFL-S9-Qyd"/>
