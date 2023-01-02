@@ -12,7 +12,7 @@ class CameraCollectionViewCell:UICollectionViewCell
 {
     fileprivate var stream:MJPEGStreamLib!
     fileprivate var spinner:UIActivityIndicatorView!
-    
+    fileprivate var lblDetailsTitle:UILabel!
     
     fileprivate let scaleFactor: CGFloat = 1.4
     
@@ -20,6 +20,7 @@ class CameraCollectionViewCell:UICollectionViewCell
     {
         didSet {
             self.titleLabel.text = title
+            self.lblDetailsTitle.text = title
         }
     }
       
@@ -65,6 +66,19 @@ class CameraCollectionViewCell:UICollectionViewCell
         {
             detailView.backgroundColor = UIColor(red: 20/155, green: 106/255, blue: 96/195, alpha: 0.5)
             addSubview(detailView)
+            
+            self.lblDetailsTitle = UILabel()
+            self.lblDetailsTitle.textColor = .white
+            self.lblDetailsTitle.font = UIFont.boldSystemFont(ofSize: 16)
+            self.lblDetailsTitle.text = "Ullas!"
+            self.lblDetailsTitle.alpha = 0.0
+            detailView.addSubview(self.lblDetailsTitle)
+            
+            self.lblDetailsTitle.translatesAutoresizingMaskIntoConstraints = false
+            self.lblDetailsTitle.leadingAnchor.constraint(equalTo: cameraImageView.leadingAnchor, constant: 10).isActive = true
+            self.lblDetailsTitle.trailingAnchor.constraint(equalTo: cameraImageView.trailingAnchor, constant: 0).isActive = true
+            self.lblDetailsTitle.centerXAnchor.constraint(equalTo: (detailView.centerXAnchor)).isActive = true
+            self.lblDetailsTitle.centerYAnchor.constraint(equalTo: (detailView.centerYAnchor)).isActive = true
         }
     }
     
@@ -79,8 +93,6 @@ class CameraCollectionViewCell:UICollectionViewCell
         super.init(coder: aDecoder)
         self.setupUI()
     }
-    
-    
     
     override func layoutSubviews()
     {
@@ -107,6 +119,7 @@ class CameraCollectionViewCell:UICollectionViewCell
         {
             UIView.animate(withDuration: 0.0, animations: { [self] in
                 self.titleLabel.isHidden = true
+                self.lblDetailsTitle.alpha = 1.0
                 //self.detailView.transform = self.detailView.transform.scaledBy(x: 1.185, y: 1.58)
                 
                 self.detailView.layoutIfNeeded()
@@ -117,6 +130,7 @@ class CameraCollectionViewCell:UICollectionViewCell
         {
             UIView.animate(withDuration: 0.1) {
                 self.titleLabel.isHidden = false
+                self.lblDetailsTitle.alpha = 0.0
                 //self.detailView.transform = CGAffineTransform.identity
             }
         }
