@@ -13,6 +13,7 @@ class ListingViewController: UIViewController
     @IBOutlet weak var listingCollectionView: UICollectionView!
     @IBOutlet weak var cameraDetails1: UILabel!
     @IBOutlet weak var cameraDetails2: UILabel!
+    @IBOutlet weak var labelSidebarInstruction: UILabel!
     
     var sidebarDelegate:SplitViewControllerDelegates!
     
@@ -23,9 +24,11 @@ class ListingViewController: UIViewController
     {
         super.viewDidLoad()
         
+        //self.labelSidebarInstruction.isHidden = true
+        
         DataManager.getInstance.camerasDelegate = self
         
-        listingCollectionView.register(CameraCollectionViewCell.self, forCellWithReuseIdentifier: collectionCellIdentifier)
+        //listingCollectionView.register(CameraCollectionViewCell.self, forCellWithReuseIdentifier: collectionCellIdentifier)
         listingCollectionView.delegate = self
         listingCollectionView.dataSource = self
         listingCollectionView.backgroundColor = .clear
@@ -70,6 +73,7 @@ extension ListingViewController:UICollectionViewDelegate, UICollectionViewDataSo
             guard (context.nextFocusedIndexPath != nil) else {return}
             self.updateCameraDetailsLabels(item: DataManager.getInstance.cameraItemAtIndex(itemAtIndex: context.nextFocusedIndexPath!.row))
             self.sidebarDelegate.hideSidebar()
+            self.labelSidebarInstruction.isHidden = false
         }
     }
 }
@@ -79,7 +83,7 @@ extension ListingViewController: UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
     {
         // main frame margin
-        return UIEdgeInsets(top: 0, left: cellOffset, bottom: 10, right: cellOffset)
+        return UIEdgeInsets(top: 0, left: cellOffset, bottom: 0, right: cellOffset)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
@@ -91,13 +95,13 @@ extension ListingViewController: UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat
     {
         // row gaps
-        return 10
+        return 30
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
         let collectionViewWidth = self.listingCollectionView.bounds.width
-        let thumbWidth = (collectionViewWidth / 3) - 30
+        let thumbWidth = (collectionViewWidth / 3) - 15
         let thumbHeight = CGFloat(thumbWidth * 0.7)
         return CGSize(width: thumbWidth, height: thumbHeight)
     }

@@ -5,6 +5,7 @@
         <deployment identifier="tvOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -173,7 +174,54 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
-                                <cells/>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="cameraListingCell" id="XN5-Hy-AjE" customClass="CameraCollectionViewCell" customModule="ZoneMinder" customModuleProvider="target">
+                                        <rect key="frame" x="268" y="0.0" width="784" height="784"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Atd-nZ-CbW">
+                                            <rect key="frame" x="0.0" y="0.0" width="784" height="784"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tM5-Af-dPs">
+                                                    <rect key="frame" x="0.0" y="0.0" width="784" height="734"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fRd-00-Sun">
+                                                    <rect key="frame" x="0.0" y="738" width="764" height="40"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9zF-qV-VvH">
+                                                    <rect key="frame" x="634" y="738" width="150" height="42"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="150" id="kEM-oM-YUU"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="tM5-Af-dPs" firstAttribute="top" secondItem="Atd-nZ-CbW" secondAttribute="top" id="0lk-Um-bfl"/>
+                                                <constraint firstAttribute="trailing" secondItem="9zF-qV-VvH" secondAttribute="trailing" id="34O-M4-p2D"/>
+                                                <constraint firstItem="fRd-00-Sun" firstAttribute="leading" secondItem="Atd-nZ-CbW" secondAttribute="leading" id="5Kt-NS-dGZ"/>
+                                                <constraint firstAttribute="bottom" secondItem="9zF-qV-VvH" secondAttribute="bottom" constant="4" id="Aes-c1-1YN"/>
+                                                <constraint firstAttribute="trailing" secondItem="fRd-00-Sun" secondAttribute="trailing" constant="20" id="h4L-Bc-xGg"/>
+                                                <constraint firstAttribute="bottom" secondItem="tM5-Af-dPs" secondAttribute="bottom" constant="50" id="hab-XO-kGg"/>
+                                                <constraint firstItem="fRd-00-Sun" firstAttribute="top" secondItem="tM5-Af-dPs" secondAttribute="bottom" constant="4" id="l6o-hM-99B"/>
+                                                <constraint firstAttribute="bottom" secondItem="fRd-00-Sun" secondAttribute="bottom" constant="6" id="qYU-9g-dxK"/>
+                                                <constraint firstAttribute="trailing" secondItem="tM5-Af-dPs" secondAttribute="trailing" id="qlK-mP-Jf6"/>
+                                                <constraint firstItem="9zF-qV-VvH" firstAttribute="top" secondItem="tM5-Af-dPs" secondAttribute="bottom" constant="4" id="r42-XI-wtc"/>
+                                                <constraint firstItem="tM5-Af-dPs" firstAttribute="leading" secondItem="Atd-nZ-CbW" secondAttribute="leading" id="xis-Hz-E1z"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="cameraImageView" destination="tM5-Af-dPs" id="VXp-1W-M0d"/>
+                                            <outlet property="labelStatus" destination="9zF-qV-VvH" id="cHc-Lr-xyk"/>
+                                            <outlet property="labelTitle" destination="fRd-00-Sun" id="NnJ-CO-sSl"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="lA0-II-SRy"/>
@@ -191,6 +239,7 @@
                     <connections>
                         <outlet property="cameraDetails1" destination="NvK-Gn-Dab" id="RW5-RM-3gg"/>
                         <outlet property="cameraDetails2" destination="sP5-Ah-DRg" id="MhM-Jz-Qtk"/>
+                        <outlet property="labelSidebarInstruction" destination="bMe-9w-md8" id="xW3-NW-D5o"/>
                         <outlet property="listingCollectionView" destination="HIu-fB-nkq" id="mSH-57-n7H"/>
                     </connections>
                 </viewController>
