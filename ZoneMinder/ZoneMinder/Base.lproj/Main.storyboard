@@ -230,13 +230,14 @@
             </objects>
             <point key="canvasLocation" x="2328" y="3264"/>
         </scene>
-        <!--Sidebar Root Menu View Controller-->
+        <!--Categories-->
         <scene sceneID="7NV-UP-CQJ">
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="VCP-w2-7E1" customClass="SidebarRootMenuViewController" customModule="ZoneMinder" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" sectionHeaderHeight="66" sectionFooterHeight="66" contentViewInsetsToSafeArea="NO" id="etH-oT-zhE">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" indentationWidth="10" reuseIdentifier="rootMenuTableCell" id="09d-p3-MxJ">
                                 <rect key="frame" x="0.0" y="66" width="555" height="66"/>
@@ -252,9 +253,7 @@
                             <outlet property="delegate" destination="VCP-w2-7E1" id="uIm-gB-d00"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="iNP-H2-jFj">
-                        <nil key="title"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Categories" leftItemsSupplementBackButton="YES" id="iNP-H2-jFj"/>
                     <connections>
                         <outlet property="tabBarObservedScrollView" destination="etH-oT-zhE" id="VwM-K5-Z9V"/>
                     </connections>
@@ -267,15 +266,15 @@
         <scene sceneID="vAA-Rw-6f6">
             <objects>
                 <tableViewController storyboardIdentifier="subMenuTableView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BWc-fJ-W3J" customClass="SidebarSubMenuViewController" customModule="ZoneMinder" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" sectionHeaderHeight="66" sectionFooterHeight="66" id="GQW-sB-zOJ">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" sectionHeaderHeight="66" sectionFooterHeight="66" contentViewInsetsToSafeArea="NO" id="GQW-sB-zOJ">
                         <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="subMenuTableCell" id="3xs-Ka-Z5k">
-                                <rect key="frame" x="96" y="66" width="1728" height="66"/>
+                                <rect key="frame" x="16" y="66" width="1888" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3xs-Ka-Z5k" id="MS8-9m-Vay">
-                                    <rect key="frame" x="0.0" y="0.0" width="1728" height="66"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1888" height="66"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>

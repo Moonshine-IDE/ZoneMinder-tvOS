@@ -22,6 +22,9 @@ class SidebarSubMenuViewController: UITableViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = .black
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     
@@ -41,8 +44,16 @@ class SidebarSubMenuViewController: UITableViewController
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "subMenuTableCell", for: indexPath)
         cell.textLabel?.text = groups[indexPath.row].name
+        cell.backgroundColor = .lightGray
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+    {
+        //view.tintColor = UIColor.red
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.lightGray
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?

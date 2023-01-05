@@ -14,6 +14,8 @@ class ListingViewController: UIViewController
     @IBOutlet weak var cameraDetails1: UILabel!
     @IBOutlet weak var cameraDetails2: UILabel!
     
+    var sidebarDelegate:SplitViewControllerDelegates!
+    
     fileprivate let cellOffset: CGFloat = 0
     fileprivate var collectionCellIdentifier = "cameraListingCell"
     
@@ -48,7 +50,7 @@ extension ListingViewController:UICollectionViewDelegate, UICollectionViewDataSo
         let cell = self.listingCollectionView.dequeueReusableCell(withReuseIdentifier: collectionCellIdentifier, for: indexPath) as! CameraCollectionViewCell
         
         cell.title = DataManager.getInstance.cameraItemAtIndex(itemAtIndex: indexPath.row).cameraName
-        cell.cameraURL = String.localizedStringWithFormat("https://zm-node-s2-01.prominic.net/zm/cgi-bin/nph-zms?scale=0&mode=jpeg&maxfps=30&monitor=90&user=Prominic&connkey=6838%@&rand=1666630366", String(indexPath.row))
+        cell.cameraURL = String.localizedStringWithFormat("https://zm-node-s2-01.prominic.net/zm/cgi-bin/nph-zms?scale=0&mode=jpeg&maxfps=30&monitor=74&user=Prominic&connkey=6838%@&rand=1666630366", String(indexPath.row))
                 
         return cell
     }
@@ -67,6 +69,7 @@ extension ListingViewController:UICollectionViewDelegate, UICollectionViewDataSo
         {
             guard (context.nextFocusedIndexPath != nil) else {return}
             self.updateCameraDetailsLabels(item: DataManager.getInstance.cameraItemAtIndex(itemAtIndex: context.nextFocusedIndexPath!.row))
+            self.sidebarDelegate.hideSidebar()
         }
     }
 }

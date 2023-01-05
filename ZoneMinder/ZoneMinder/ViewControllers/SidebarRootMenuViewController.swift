@@ -30,7 +30,51 @@ class SidebarRootMenuViewController: UITableViewController
         self.tableView.remembersLastFocusedIndexPath = true
         
         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(onHideButtonPressed))
+        //self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(onHideButtonPressed))
+        
+        self.adjustNavigationTitle()
+        self.addInformationView()
+    }
+    
+    override var preferredFocusEnvironments: [UIFocusEnvironment]
+    {
+        return self.tableView.preferredFocusEnvironments
+    }
+    
+    fileprivate func addInformationView()
+    {
+        let informationView = UIView(frame: CGRect(x: 0, y: self.view.frame.height - 440, width: 540, height: 200))
+        let informationText = UILabel()
+        informationText.text = "Related information can be displayed at here. Related information can be displayed at here."
+        informationText.textColor = .darkGray
+        informationText.numberOfLines = 4
+        informationText.font = informationText.font.withSize(30)
+        informationText.textAlignment = .left
+        informationView.addSubview(informationText)
+        informationText.alignToSuperView()
+        
+        self.view.addSubview(informationView)
+    }
+    
+    fileprivate func adjustNavigationTitle()
+    {
+        guard let navFrame = navigationController?.navigationBar.frame else
+        {
+            return
+        }
+            
+        let parentView = UIView(frame: CGRect(x: 0, y: 0, width: navFrame.width*3, height: navFrame.height))
+        self.navigationItem.titleView = parentView
+        
+        let label = UILabel(frame: .init(x: parentView.frame.minX - 60, y: parentView.frame.minY, width: parentView.frame.width, height: parentView.frame.height))
+        label.backgroundColor = .clear
+        label.numberOfLines = 2
+        label.font = .boldSystemFont(ofSize: 40)
+        label.textAlignment = .left
+        label.textColor = UIColor(rgb: 0x990033)
+        label.text = "CATEGORIES"
+        
+        parentView.addSubview(label)
     }
        
     // MARK: - Table view data source
@@ -50,6 +94,7 @@ class SidebarRootMenuViewController: UITableViewController
         let cell = tableView.dequeueReusableCell(withIdentifier: "rootMenuTableCell", for: indexPath)
         cell.textLabel?.text = DataManager.getInstance.sidebarRootMenuItems()[indexPath.section][indexPath.row].name
         cell.insetsLayoutMarginsFromSafeArea = false
+        cell.backgroundColor = .lightGray
         cell.accessoryType = .disclosureIndicator
         
         return cell
@@ -99,6 +144,13 @@ class SidebarRootMenuViewController: UITableViewController
      return true
      }
      */
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+    {
+        //view.tintColor = UIColor.red
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.lightGray
+    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {

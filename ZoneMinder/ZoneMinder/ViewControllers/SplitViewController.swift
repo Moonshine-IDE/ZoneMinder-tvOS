@@ -21,8 +21,13 @@ class SplitViewController:UISplitViewController, UISplitViewControllerDelegate
     {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor(rgb: 0x333333)
+        
         let sidebarController = (viewControllers[0] as! UINavigationController).viewControllers[0] as! SidebarRootMenuViewController
         sidebarController.sidebarDelegate = self
+        
+        let listingController = (viewControllers[1] as! UINavigationController).viewControllers[0] as! ListingViewController
+        listingController.sidebarDelegate = self
         
         let menuPressRecognizer = UITapGestureRecognizer()
         menuPressRecognizer.addTarget(self, action: #selector(menuButtonAction))
@@ -44,6 +49,11 @@ class SplitViewController:UISplitViewController, UISplitViewControllerDelegate
         if displayMode == .secondaryOnly
         {
             self.preferredDisplayMode = .automatic
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2)
+            {
+                self.setNeedsFocusUpdate()
+                self.updateFocusIfNeeded()
+            }
         }
         else
         {
@@ -84,6 +94,9 @@ extension SplitViewController:SplitViewControllerDelegates
 {
     func hideSidebar()
     {
-        self.preferredDisplayMode = .secondaryOnly
+        if self.displayMode != .secondaryOnly
+        {
+            self.preferredDisplayMode = .secondaryOnly
+        }
     }
 }
