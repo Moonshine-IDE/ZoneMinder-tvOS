@@ -1,0 +1,178 @@
+{
+  "documents": [
+    {
+      "Group": "Camera Group Name A",
+      "DominoUniversalID": "542D36F7319920B3002589170024388B",
+      "Frequency": "90",
+      "SubGroup": "Camera SubGroup A in A",
+      "URL": "https://zm-",
+      "CameraID": "Camera1",
+      "Name": "Camera Name 1"
+    },
+    {
+      "Group": "Camera Group Name A",
+      "DominoUniversalID": "542D36F7319920B3002589170024388B",
+      "Frequency": "90",
+      "SubGroup": "Camera SubGroup A in A",
+      "URL": "https://zm-",
+      "CameraID": "Camera2",
+      "Name": "Camera Name 2"
+    },
+    {
+      "Group": "Camera Group Name A",
+      "DominoUniversalID": "542D36F7319920B3002589170024388B",
+      "Frequency": "90",
+      "SubGroup": "Camera SubGroup A in A",
+      "URL": "https://zm-",
+      "CameraID": "Camera3",
+      "Name": "Camera Name 3"
+    },
+    {
+      "Group": "Camera Group Name A",
+      "DominoUniversalID": "542D36F7319920B3002589170024388B",
+      "Frequency": "90",
+      "SubGroup": "Camera SubGroup A in A",
+      "URL": "https://zm-",
+      "CameraID": "Camera4",
+      "Name": "Camera Name 4"
+    },
+    {
+      "Group": "Camera Group Name A",
+      "DominoUniversalID": "542D36F7319920B3002589170024388B",
+      "Frequency": "90",
+      "SubGroup": "Camera SubGroup A in A",
+      "URL": "https://zm-",
+      "CameraID": "Camera5",
+      "Name": "Camera Name 5"
+    },
+    {
+      "Group": "Camera Group Name A",
+      "DominoUniversalID": "542D36F7319920B3002589170024388B",
+      "Frequency": "90",
+      "SubGroup": "Camera SubGroup A in A",
+      "URL": "https://zm-",
+      "CameraID": "Camera6",
+      "Name": "Camera Name 6"
+    },
+    {
+      "Group": "Camera Group Name A",
+      "DominoUniversalID": "542D36F7319920B3002589170024388B",
+      "Frequency": "90",
+      "SubGroup": "Camera SubGroup A in A",
+      "URL": "https://zm-",
+      "CameraID": "Camera18",
+      "Name": "Camera Name 18"
+    },
+    {
+      "Group": "Camera Group Name A",
+      "DominoUniversalID": "542D36F7319920B3002589170024388B",
+      "Frequency": "90",
+      "SubGroup": "Camera SubGroup A in A",
+      "URL": "https://zm-",
+      "CameraID": "Camera19",
+      "Name": "Camera Name 19"
+    },
+    {
+      "Group": "Camera Group Name A",
+      "DominoUniversalID": "542D36F7319920B3002589170024388B",
+      "Frequency": "90",
+      "SubGroup": "Camera SubGroup B in A",
+      "URL": "https://zm-",
+      "CameraID": "Camera7",
+      "Name": "Camera Name 7"
+    },
+    {
+      "Group": "Camera Group Name A",
+      "DominoUniversalID": "542D36F7319920B3002589170024388B",
+      "Frequency": "90",
+      "SubGroup": "Camera SubGroup B in A",
+      "URL": "https://zm-",
+      "CameraID": "Camera8",
+      "Name": "Camera Name 8"
+    },
+    {
+      "Group": "Camera Group Name B",
+      "DominoUniversalID": "542D36F7319920B3002589170024388B",
+      "Frequency": "90",
+      "SubGroup": "Camera SubGroup A in B",
+      "URL": "https://zm-",
+      "CameraID": "Camera9",
+      "Name": "Camera Name 9"
+    },
+    {
+      "Group": "Camera Group Name B",
+      "DominoUniversalID": "542D36F7319920B3002589170024388B",
+      "Frequency": "90",
+      "SubGroup": "Camera SubGroup A in B",
+      "URL": "https://zm-",
+      "CameraID": "Camera10",
+      "Name": "Camera Name 10"
+    },
+    {
+      "Group": "Camera Group Name B",
+      "DominoUniversalID": "542D36F7319920B3002589170024388B",
+      "Frequency": "90",
+      "SubGroup": "Camera SubGroup A in B",
+      "URL": "https://zm-",
+      "CameraID": "Camera11",
+      "Name": "Camera Name 11"
+    },
+    {
+      "Group": "Camera Group Name B",
+      "DominoUniversalID": "542D36F7319920B3002589170024388B",
+      "Frequency": "90",
+      "SubGroup": "Camera SubGroup A in B",
+      "URL": "https://zm-",
+      "CameraID": "Camera12",
+      "Name": "Camera Name 12"
+    },
+    {
+      "Group": "Camera Group Name B",
+      "DominoUniversalID": "542D36F7319920B3002589170024388B",
+      "Frequency": "90",
+      "SubGroup": "Camera SubGroup B in B",
+      "URL": "https://zm-",
+      "CameraID": "Camera13",
+      "Name": "Camera Name 13"
+    },
+    {
+      "Group": "Camera Group Name B",
+      "DominoUniversalID": "542D36F7319920B3002589170024388B",
+      "Frequency": "90",
+      "SubGroup": "Camera SubGroup B in B",
+      "URL": "https://zm-",
+      "CameraID": "Camera14",
+      "Name": "Camera Name 14"
+    },
+    {
+      "Group": "Camera Group Name B",
+      "DominoUniversalID": "542D36F7319920B3002589170024388B",
+      "Frequency": "90",
+      "SubGroup": "Camera SubGroup B in B",
+      "URL": "https://zm-",
+      "CameraID": "Camera15",
+      "Name": "Camera Name 15"
+    },
+    {
+      "Group": "Camera Group Name B",
+      "DominoUniversalID": "542D36F7319920B3002589170024388B",
+      "Frequency": "90",
+      "SubGroup": "Camera SubGroup C in B",
+      "URL": "https://zm-",
+      "CameraID": "Camera16",
+      "Name": "Camera Name 16"
+    },
+    {
+      "Group": "Camera Group Name B",
+      "DominoUniversalID": "542D36F7319920B3002589170024388B",
+      "Frequency": "90",
+      "SubGroup": "Camera SubGroup C in B",
+      "URL": "https://zm-",
+      "CameraID": "Camera17",
+      "Name": "Camera Name 17"
+    }
+  ],
+  "errorMessage": "",
+  "state": "authenticated",
+  "username": "Anonymous"
+}

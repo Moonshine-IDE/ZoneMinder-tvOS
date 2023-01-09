@@ -24,7 +24,8 @@ class ListingViewController: UIViewController
     {
         super.viewDidLoad()
         
-        //self.labelSidebarInstruction.isHidden = true
+        self.labelSidebarInstruction.textColor = UIColor(rgb: 0xc7043e)
+        self.labelSidebarInstruction.alpha = 0.6
         
         DataManager.getInstance.camerasDelegate = self
         
@@ -73,7 +74,7 @@ extension ListingViewController:UICollectionViewDelegate, UICollectionViewDataSo
             guard (context.nextFocusedIndexPath != nil) else {return}
             self.updateCameraDetailsLabels(item: DataManager.getInstance.cameraItemAtIndex(itemAtIndex: context.nextFocusedIndexPath!.row))
             self.sidebarDelegate.hideSidebar()
-            self.labelSidebarInstruction.isHidden = false
+            self.labelSidebarInstruction.alpha = 1.0
         }
     }
 }
