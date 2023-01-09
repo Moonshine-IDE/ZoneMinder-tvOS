@@ -57,18 +57,18 @@
                                 <rect key="frame" x="1120" y="207" width="800" height="666"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="66" sectionFooterHeight="66" translatesAutoresizingMaskIntoConstraints="NO" id="Qgl-dv-ilL">
-                                        <rect key="frame" x="0.0" y="0.0" width="740" height="666"/>
+                                        <rect key="frame" x="0.0" y="100" width="680" height="566"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" restorationIdentifier="alertDetailsCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="tvTableViewCell" textLabel="IxA-LZ-iuY" rowHeight="82" style="IBUITableViewCellStyleDefault" id="FEa-Fu-aNm" customClass="TVTableCellRenderer" customModule="ZoneMinder" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="66" width="720" height="82"/>
+                                                <rect key="frame" x="0.0" y="66" width="680" height="82"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FEa-Fu-aNm" id="tnZ-sF-kYv">
-                                                    <rect key="frame" x="0.0" y="0.0" width="665" height="82"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="625" height="82"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IxA-LZ-iuY">
-                                                            <rect key="frame" x="20" y="0.0" width="625" height="82"/>
+                                                            <rect key="frame" x="20" y="0.0" width="585" height="82"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                             <nil key="textColor"/>
@@ -83,13 +83,23 @@
                                             <outlet property="delegate" destination="BYZ-38-t0r" id="XFm-wE-EUo"/>
                                         </connections>
                                     </tableView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available TVs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="awm-Zh-wHP">
+                                        <rect key="frame" x="8" y="8" width="784" height="58"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                        <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="666" id="12m-ZD-fRD"/>
-                                    <constraint firstAttribute="trailing" secondItem="Qgl-dv-ilL" secondAttribute="trailing" constant="60" id="E2Q-UE-3fx"/>
-                                    <constraint firstItem="Qgl-dv-ilL" firstAttribute="top" secondItem="tTF-Xu-aue" secondAttribute="top" id="VdM-vy-glI"/>
+                                    <constraint firstItem="Qgl-dv-ilL" firstAttribute="top" secondItem="awm-Zh-wHP" secondAttribute="bottom" constant="34" id="2xs-xy-nPe"/>
+                                    <constraint firstAttribute="trailing" secondItem="Qgl-dv-ilL" secondAttribute="trailing" constant="120" id="E2Q-UE-3fx"/>
+                                    <constraint firstItem="Qgl-dv-ilL" firstAttribute="top" secondItem="tTF-Xu-aue" secondAttribute="top" constant="100" id="VdM-vy-glI"/>
+                                    <constraint firstAttribute="trailing" secondItem="awm-Zh-wHP" secondAttribute="trailing" constant="8" id="Zzj-Wc-SR7"/>
                                     <constraint firstAttribute="bottom" secondItem="Qgl-dv-ilL" secondAttribute="bottom" id="c4y-2g-2Va"/>
+                                    <constraint firstItem="awm-Zh-wHP" firstAttribute="top" secondItem="tTF-Xu-aue" secondAttribute="top" constant="8" id="d7d-D7-9Yz"/>
                                     <constraint firstItem="Qgl-dv-ilL" firstAttribute="leading" secondItem="tTF-Xu-aue" secondAttribute="leading" id="fz6-Oa-k10"/>
+                                    <constraint firstItem="awm-Zh-wHP" firstAttribute="leading" secondItem="tTF-Xu-aue" secondAttribute="leading" constant="8" id="mOQ-tN-6Gs"/>
                                     <constraint firstAttribute="width" constant="800" id="nJC-wg-bfY"/>
                                 </constraints>
                             </view>
