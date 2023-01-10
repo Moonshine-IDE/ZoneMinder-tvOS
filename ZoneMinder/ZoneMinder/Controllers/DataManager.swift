@@ -27,6 +27,8 @@ typealias CameraItems = [CameraItemVO]
 let INSTANCE : DataManager = DataManager()
 class DataManager: NSObject
 {
+    static let showAllLabel = "Show All"
+    
     //let jsonURL = "https://domino-49.prominic.net/SystemHealthAlertsTestData/DemoAlertsJSON.json"
     
     var countSuccess:Int = 0
@@ -113,6 +115,9 @@ class DataManager: NSObject
                     //self.jsonData.reportedError = reportedJSONError
                 }
                 
+                // create default menu options
+                self.generateDefaultMenus()
+                
                 if let results = camerasJsonObj!["documents"] as? [AnyObject]
                 {
                     var cameraItem:CameraItemVO!
@@ -160,6 +165,16 @@ class DataManager: NSObject
         cameraItems.sort { (itemA, itemB) ->Bool in
             itemA.cameraName < itemB.cameraName
         }
+    }
+    
+    func generateDefaultMenus()
+    {
+        let tmpGroup = Group()
+        let tmpSubGroup = Group()
+        tmpGroup.name = DataManager.showAllLabel
+        tmpSubGroup.name = DataManager.showAllLabel
+        tmpGroup.subGroups = [tmpSubGroup]
+        self.groups.append(tmpGroup)
     }
     
     func parseGroupSubgroups(cameraItem:CameraItemVO)
@@ -216,8 +231,16 @@ class DataManager: NSObject
         self.releaseCameraFilterByGroupSubGroups()
         
         cameraItemsNonFiltered = self.cameraItems
-        cameraItems = cameraItems.filter { (cameraItem) -> Bool in
-            cameraItem.group == Constants.selectedGroup.name && cameraItem.subGroup == Constants.selectedSubGroup.name
+        
+        if Constants.selectedGroup.name == DataManager.showAllLabel
+        {
+            cameraItems = cameraItemsNonFiltered
+        }
+        else
+        {
+            cameraItems = cameraItems.filter { (cameraItem) -> Bool in
+                cameraItem.group == Constants.selectedGroup.name && cameraItem.subGroup == Constants.selectedSubGroup.name
+            }
         }
         
         self.sortCameras()
