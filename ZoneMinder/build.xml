@@ -10,6 +10,23 @@
 	<!--
 	//==========================================================================
 	//
+	//  PARAMETERS - Override these as needed on the commandline with -D<property>=<value
+	//  Example:  ant -DAPP_NAME=ZoneMinder -DAPP_ID=net.prominic.ZoneMinder
+	//
+	//==========================================================================
+	-->
+	
+	<property name="APP_NAME" value="ZoneMinder" />
+	<property name="APP_ID" value="net.prominic.ZoneMinder" />
+	<!-- The Label for the simulator to use for running this application.  
+	     The script will search for the first match in the "xcrun simctl list devices available" command output -->
+	<property name="SIMULATOR" value="Apple TV 4K (at 1080p)" />
+	<!-- Alternatively, you can specify a specific device ID (from "xcrun simctl list") with this parameter:  "-DtargetDeviceUDID=<id>" -->
+	
+	
+	<!--
+	//==========================================================================
+	//
 	//  PROPERTIES
 	//
 	//==========================================================================
@@ -242,10 +259,10 @@
 		<copy file="${certSelfSigned}" todir="${debug_dir}" overwrite="true"/>
 	 </target>
 
-	<target name="RetrieveInitialDetails">
+	<target name="RetrieveInitialDetails" unless="targetDeviceUDID" >
 		<exec executable="bash" failonerror="true" outputproperty="targetDeviceUDID">
 			<arg value="-c"/>
-			<arg value="${XCRUN_EXEC} simctl list devices available | grep 'Apple TV 4K (at 1080p)' | head -n 1 | sed 's/.*(\([^)]*\)) ([^)]*) *$/\1/'"/>
+			<arg value="${XCRUN_EXEC} simctl list devices available | grep '${SIMULATOR}' | head -n 1 | sed 's/.*(\([^)]*\)) ([^)]*) *$/\1/'"/>
 		</exec>
 		<echo>Target device UDID: ${targetDeviceUDID}</echo>
 	</target>
@@ -596,36 +613,5 @@
 	</target>
 
 	
-	<!-- Determine the SVN revision of the current project
-            The revision is set to the "svn.revision" property
-            If this property is already set, the task will not run.
-            This requires the "svnversion" command. 
-    -->
-    <target name="svn-revision" unless="svn.revision">
-        <echo message="Original revision number:  ${svn.revision}" />
-        <!-- live version -->
-        <exec executable="svnversion">
-            <redirector outputproperty="svn.revision">
-                <outputfilterchain>
-                    <tokenfilter>
-                        <stringtokenizer />
-                        <replaceregex pattern="(.*)\:" replace="" />
-                        <trim />
-                    </tokenfilter>
-                </outputfilterchain>
-            </redirector>
-        </exec>
-        <!-- for debugging on a system where svn.revision does not work
-        <property name="svn.revision" value="3329" /> -->
-        
-        <echo>SVN Revision: ${svn.revision}</echo>
-        
-        <!-- ensure that the revision is in the correct format -->
-        <condition property="svn-valid">
-			<matches pattern="^[0-9]*(M)?$" string="${svn.revision}"/>
-        </condition>
-        <fail message="Invalid format for SVN revision '${svn.revision}'."
-              unless="svn-valid" />
-    </target>
 	
 </project>
