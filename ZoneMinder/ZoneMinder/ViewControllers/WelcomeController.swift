@@ -25,7 +25,7 @@ class WelcomeController: UIViewController
     {
         super.viewDidLoad()
         
-        //self.view.backgroundColor = UIColor(rgb: 0xe4e4e4)
+        self.view.backgroundColor = UIColor(rgb: 0x333333)
         //self.logoBackgroundView.backgroundColor = UIColor(rgb: 0x333333)
         self.allowedTVsMenuTable.backgroundColor = UIColor.clear
         self.requestData()
@@ -82,6 +82,7 @@ extension WelcomeController: UITableViewDelegate, UITableViewDataSource
         {
             cell?.textLabel?.text = item.name
             cell?.backgroundColor = UIColor.white
+            cell?.textLabel?.textColor = .black
         }
         
         return cell!

@@ -78,7 +78,7 @@ class DataManager: NSObject
                         self.tvItems.append(tvItem)
                     }
                     
-                    self.sortTVs()
+                    //self.sortTVs()
                 }
                 
                 if self.tvsDelegate != nil
