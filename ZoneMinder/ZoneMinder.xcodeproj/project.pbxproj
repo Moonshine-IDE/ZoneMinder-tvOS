@@ -62,6 +62,7 @@
 		4A4B907E2948A89B00CCF938 /* CameraItemVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraItemVO.swift; sourceTree = "<group>"; };
 		4A9C9EA02949FC640051C695 /* AllowedTVs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AllowedTVs.json; sourceTree = "<group>"; };
 		4A9C9EA22949FC6B0051C695 /* Cameras.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Cameras.json; sourceTree = "<group>"; };
+		4AA3EC92296D33BF008D7107 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AB3FDAA294C7C5400875B8D /* TVTableCellRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVTableCellRenderer.swift; sourceTree = "<group>"; };
 		4AB3FDAD294C928F00875B8D /* UIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
 		4AB3FDAF294C93F600875B8D /* SidebarRootMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRootMenuViewController.swift; sourceTree = "<group>"; };
@@ -189,6 +190,7 @@
 		4AD9D9402940994200BC1EE8 /* ZoneMinder */ = {
 			isa = PBXGroup;
 			children = (
+				4AA3EC92296D33BF008D7107 /* Info.plist */,
 				4A00DD9729504169000D66F6 /* MJPEGStreamLib */,
 				4AB3FDAC294C928200875B8D /* Utils */,
 				4AB3FDA9294C7C2300875B8D /* Renderers */,
@@ -548,7 +550,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LS9K97G9DD;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ZoneMinder/Info.plist;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
@@ -574,7 +577,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LS9K97G9DD;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ZoneMinder/Info.plist;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;

@@ -245,7 +245,7 @@
 	<target name="RetrieveInitialDetails">
 		<exec executable="bash" failonerror="true" outputproperty="targetDeviceUDID">
 			<arg value="-c"/>
-			<arg value="${XCRUN_EXEC} simctl list devices available | grep 'Apple TV 4K (2nd generation)' | head -n 1 | sed 's/.*(\([^)]*\)) ([^)]*) *$/\1/'"/>
+			<arg value="${XCRUN_EXEC} simctl list devices available | grep 'Apple TV 4K (at 1080p)' | head -n 1 | sed 's/.*(\([^)]*\)) ([^)]*) *$/\1/'"/>
 		</exec>
 		<echo>Target device UDID: ${targetDeviceUDID}</echo>
 	</target>
