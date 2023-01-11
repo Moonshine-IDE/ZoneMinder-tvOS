@@ -7,5 +7,5 @@ AppleTV Solution To ZoneMinder Camera Streaming Using Moonshine Form Builder
  
  ### Pre-requisites (Ant build)
  - Xcode >= 12.0 (**14.0** recommended)
- - Command Line Tools (To install run `xcode-select --select` on Terminal)
+ - Command Line Tools (To install run `xcode-select --install` on Terminal)
  
