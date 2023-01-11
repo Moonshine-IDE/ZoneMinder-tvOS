@@ -61,7 +61,7 @@
 		</exec>
 		<exec executable="bash" failonerror="true" outputproperty="buildDirectory">
 			<arg value="-c"/>
-			<arg value="${XCODEBUILD_EXEC} -project ${APP_NAME}.xcodeproj -showBuildSettings | grep -m 1 'BUILD_DIR' | sed 's/^.*BUILD_DIR *= *\(.*\)$/\1/'"/>
+			<arg value="${XCODEBUILD_EXEC} -project ${APP_NAME}.xcodeproj -showBuildSettings 2>&amp;1 | grep -m 1 'BUILD_DIR' | sed 's/^.*BUILD_DIR = \(.*\)$/\1/'"/>
 		</exec>
 		<echo>Build directory: ${buildDirectory}</echo>
 		<echo>Starting target simulator..</echo>
