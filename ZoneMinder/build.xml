@@ -24,6 +24,8 @@
 	//==========================================================================
 	-->
 	
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="ant-contrib-1.0b3.jar"/>
+	
 	<condition property="XCODEBUILD_EXEC" value="/usr/bin/xcodebuild">
 		<and>
 			<os family="mac" />
@@ -70,7 +72,10 @@
 			<arg value="open -a Simulator --args -CurrentDeviceUDID ${targetDeviceUDID}"/>
 		</exec>
 		<echo>Simulator started with UDID: ${targetDeviceUDID}</echo>
-		<sleep seconds="10"/>
+
+		<property name="continueTestBoot" value="true"/>
+		<antcall target="testSimulatorBoot"/>
+
 		<echo>Installing app on simulator..</echo>
 		<exec executable="bash" failonerror="true">
 			<arg value="-c"/>
@@ -81,5 +86,32 @@
 			<arg value="-c"/>
 			<arg value="${XCRUN_EXEC} simctl launch ${targetDeviceUDID} ${APP_ID}"/>
 		</exec>
+	</target>
+	
+	<target name="testSimulatorBoot" if="${continueTestBoot}">
+		<exec executable="bash" failonerror="true" outputproperty="targetDeviceBootTestOutput">
+			<arg value="-c"/>
+			<arg value="${XCRUN_EXEC} simctl list devices available | grep '${targetDeviceUDID}'"/>
+		</exec>
+
+		<echo>${targetDeviceBootTestOutput}</echo>
+		<if>
+		<matches pattern="(Booted)" string="${targetDeviceBootTestOutput}"/>
+		<then>
+			<echo>Its booted</echo>
+			<property name="continueTestBoot" value="false"/>
+		</then>
+		<else>
+		<echo>not booted - testing in a few seconds</echo>
+			<!-- Since we can not re-call the owner target -->
+			<antcall target="restartTestSimulatorBoot"/>
+		</else>
+		</if>
+	</target>
+	
+	<target name="restartTestSimulatorBoot">
+		<sleep seconds="20"/>
+		<var name="targetDeviceBootTestOutput" unset="true"/>
+		<antcall target="testSimulatorBoot"/>
 	</target>
 </project>
