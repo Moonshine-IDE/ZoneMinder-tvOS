@@ -1,4 +1,4 @@
-<project name="ZoneMinderBuildAndTest" basedir="." default="BuildAndRunOnSimulator" >
+<project name="ZoneMinderBuildAndTest" basedir="." default="BuildAndRunSimulator" >
 	
 	<!--
 	//==========================================================================
@@ -9,22 +9,17 @@
 	//==========================================================================
 	-->
 	
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="ant-contrib-1.0b3.jar"/>
+	
+	<property name="passedSeconds" value="0"/>
+	<!-- Timeout seconds to test simulator boot. Maximum is 60 seconds. -->
+	
 	<property name="APP_NAME" value="ZoneMinder" />
 	<property name="APP_ID" value="net.prominic.ZoneMinder" />
 	<!-- The Label for the simulator to use for running this application.  
 	     The script will search for the first match in the "xcrun simctl list devices available" command output -->
 	<property name="SIMULATOR" value="Apple TV 4K (at 1080p)" />
 	<!-- Alternatively, you can specify a specific device ID (from "xcrun simctl list") with this parameter:  "-DtargetDeviceUDID=<id>" -->
-	
-	<!--
-	//==========================================================================
-	//
-	//  PROPERTIES
-	//
-	//==========================================================================
-	-->
-	
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="ant-contrib-1.0b3.jar"/>
 	
 	<condition property="XCODEBUILD_EXEC" value="/usr/bin/xcodebuild">
 		<and>
@@ -48,6 +43,7 @@
 	//==========================================================================
 	 -->
 
+	<!-- Gets UDID reference for named simulator -->
 	<target name="RetrieveInitialDetails" unless="targetDeviceUDID" >
 		<exec executable="bash" failonerror="true" outputproperty="targetDeviceUDID">
 			<arg value="-c"/>
@@ -56,7 +52,8 @@
 		<echo>Target device UDID: ${targetDeviceUDID}</echo>
 	</target>
 	
-	<target name="BuildAndRunOnSimulator" depends="RetrieveInitialDetails">
+	<!-- Builds the app and boot the simulator -->
+	<target name="BuildAndRunSimulator" depends="RetrieveInitialDetails">
 		<exec executable="bash" failonerror="true">
 			<arg value="-c"/>
 			<arg value="${XCODEBUILD_EXEC} clean build -scheme ${APP_NAME} -project ${APP_NAME}.xcodeproj -destination 'id=${targetDeviceUDID}'"/>
@@ -73,9 +70,49 @@
 		</exec>
 		<echo>Simulator started with UDID: ${targetDeviceUDID}</echo>
 
-		<property name="continueTestBoot" value="true"/>
 		<antcall target="testSimulatorBoot"/>
+	</target>
 
+	<!-- Test the simulator status if booted, before attempting to install the app -->
+	<target name="testSimulatorBoot">
+		<exec executable="bash" failonerror="true" outputproperty="targetDeviceBootTestOutput">
+			<arg value="-c"/>
+			<arg value="${XCRUN_EXEC} simctl list devices available | grep '${targetDeviceUDID}'"/>
+		</exec>
+		<echo>${targetDeviceBootTestOutput}</echo>
+		<if>
+			<matches pattern="(Booted)" string="${targetDeviceBootTestOutput}"/>
+			<then>
+				<antcall target="InstallAndRunOnSimulator"/>
+			</then>
+			<else>
+				<echo>Note: Waiting for simulator boot. Re-checks in a moment.</echo>
+				<script language="javascript">
+				  	seconds = Number(project.getProperty('passedSeconds'));
+				  	seconds = seconds + 5;
+				  	project.setProperty('passedSeconds', String(seconds));
+				</script>
+				<if>
+					<equals arg1="${passedSeconds}" arg2="60" /> <!-- Timeout based on 5 seconds' interval -->
+					<then>
+						<echo>Error: Reaches maximum waiting period for the simulator to boot.</echo>
+					</then>
+					<else>
+						<sleep seconds="5"/> <!-- Interval of 5 seconds -->
+						<!-- Since we can not re-call the owner target -->
+						<antcall target="restartTestSimulatorBoot"/>
+					</else>
+				</if>		
+			</else>
+		</if>
+	</target>
+	<target name="restartTestSimulatorBoot">
+		<var name="targetDeviceBootTestOutput" unset="true"/>
+		<antcall target="testSimulatorBoot"/>
+	</target>
+
+	<!-- Install the app in simulator and run -->
+	<target name="InstallAndRunOnSimulator">
 		<echo>Installing app on simulator..</echo>
 		<exec executable="bash" failonerror="true">
 			<arg value="-c"/>
@@ -86,32 +123,5 @@
 			<arg value="-c"/>
 			<arg value="${XCRUN_EXEC} simctl launch ${targetDeviceUDID} ${APP_ID}"/>
 		</exec>
-	</target>
-	
-	<target name="testSimulatorBoot" if="${continueTestBoot}">
-		<exec executable="bash" failonerror="true" outputproperty="targetDeviceBootTestOutput">
-			<arg value="-c"/>
-			<arg value="${XCRUN_EXEC} simctl list devices available | grep '${targetDeviceUDID}'"/>
-		</exec>
-
-		<echo>${targetDeviceBootTestOutput}</echo>
-		<if>
-		<matches pattern="(Booted)" string="${targetDeviceBootTestOutput}"/>
-		<then>
-			<echo>Its booted</echo>
-			<property name="continueTestBoot" value="false"/>
-		</then>
-		<else>
-		<echo>not booted - testing in a few seconds</echo>
-			<!-- Since we can not re-call the owner target -->
-			<antcall target="restartTestSimulatorBoot"/>
-		</else>
-		</if>
-	</target>
-	
-	<target name="restartTestSimulatorBoot">
-		<sleep seconds="20"/>
-		<var name="targetDeviceBootTestOutput" unset="true"/>
-		<antcall target="testSimulatorBoot"/>
 	</target>
 </project>
