@@ -42,6 +42,7 @@ class DataManager: NSObject
     fileprivate var cameraItems:CameraItems!
     fileprivate var cameraItemsNonFiltered:CameraItems!
     fileprivate var sidebarRootMenuData:[[Group]]!
+    fileprivate var streams = [MJPEGStreamLib]()
     
     class var getInstance: DataManager
     {
@@ -133,6 +134,7 @@ class DataManager: NSObject
                             subGroup: obj["SubGroup"] as? String
                         )
                         
+                        cameraItem.isStop = false
                         self.cameraItems.append(cameraItem)
                         self.parseGroupSubgroups(cameraItem: cameraItem)
                     }
@@ -253,10 +255,20 @@ class DataManager: NSObject
         }
     }
     
+    func removeRunningStreams()
+    {
+        for (i, stream) in self.streams.enumerated().reversed()
+        {
+            stream.stop()
+            self.streams.remove(at: i)
+        }
+    }
+    
     func stopAllRunningStreams()
     {
-        cameraItems = [CameraItemVO]()
+        self.removeRunningStreams()
         
+        cameraItems = [CameraItemVO]()
         if self.camerasDelegate != nil
         {            
             self.camerasDelegate.dataUpdated()
@@ -344,5 +356,12 @@ class DataManager: NSObject
         }
         
         return nil
+    }
+    
+    // MARK: Stream items
+    
+    func storeStreamReference(stream ref: MJPEGStreamLib)
+    {
+        self.streams.append(ref)
     }
 }

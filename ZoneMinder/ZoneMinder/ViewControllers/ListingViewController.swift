@@ -18,7 +18,6 @@ class ListingViewController: UIViewController
     var sidebarDelegate:SplitViewControllerDelegates!
     
     fileprivate let cellOffset: CGFloat = 0
-    fileprivate var collectionCellIdentifier = "cameraListingCell"
     
     override func viewDidLoad()
     {
@@ -29,7 +28,6 @@ class ListingViewController: UIViewController
         
         DataManager.getInstance.camerasDelegate = self
         
-        //listingCollectionView.register(CameraCollectionViewCell.self, forCellWithReuseIdentifier: collectionCellIdentifier)
         listingCollectionView.delegate = self
         listingCollectionView.dataSource = self
         listingCollectionView.backgroundColor = .clear
@@ -51,10 +49,10 @@ extension ListingViewController:UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-        let cell = self.listingCollectionView.dequeueReusableCell(withReuseIdentifier: collectionCellIdentifier, for: indexPath) as! CameraCollectionViewCell
+        let cell = self.listingCollectionView.dequeueReusableCell(withReuseIdentifier: "cameraListingCell", for: indexPath) as! CameraCollectionViewCell
         
         cell.title = DataManager.getInstance.cameraItemAtIndex(itemAtIndex: indexPath.row).cameraName
-        cell.cameraURL = String.localizedStringWithFormat("https://zm-node-s2-01.prominic.net/zm/cgi-bin/nph-zms?scale=0&mode=jpeg&maxfps=30&monitor=74&user=Prominic&connkey=6838%@&rand=1666630366", String(indexPath.row))
+        cell.cameraURL = String.localizedStringWithFormat("https://zm-node-s2-01.prominic.net/zm/cgi-bin/nph-zms?scale=0&mode=jpeg&maxfps=30&monitor=74&user=Prominic&connkey=6838%@", String(indexPath.row))
                 
         return cell
     }

@@ -10,7 +10,7 @@ import UIKit
 
 open class MJPEGStreamLib: NSObject, URLSessionDataDelegate {
     
-    fileprivate enum StreamStatus {
+    enum StreamStatus {
         case stop
         case loading
         case play
@@ -19,7 +19,8 @@ open class MJPEGStreamLib: NSObject, URLSessionDataDelegate {
     fileprivate var receivedData: NSMutableData?
     fileprivate var dataTask: URLSessionDataTask?
     fileprivate var session: Foundation.URLSession!
-    fileprivate var status: StreamStatus = .stop
+    
+    var status: StreamStatus = .stop
     
     open var authenticationHandler: ((URLAuthenticationChallenge) -> (Foundation.URLSession.AuthChallengeDisposition, URLCredential?))?
     open var didStartLoading: (()->Void)?

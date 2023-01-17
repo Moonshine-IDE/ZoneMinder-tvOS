@@ -18,7 +18,6 @@ class CameraCollectionViewCell:UICollectionViewCell
         {
             cameraImageView.layer.cornerRadius = 30
             cameraImageView.clipsToBounds = true
-            self.stream = MJPEGStreamLib(imageView: cameraImageView)
         }
     }
     
@@ -41,6 +40,12 @@ class CameraCollectionViewCell:UICollectionViewCell
     {
         didSet
         {
+            if self.stream == nil || self.stream.status == .stop
+            {
+                self.stream = MJPEGStreamLib(imageView: cameraImageView)
+                DataManager.getInstance.storeStreamReference(stream: self.stream)
+            }
+            
             stream.didStartLoading = { [unowned self] in
                 self.updateSpinnerView(show: true)
             }

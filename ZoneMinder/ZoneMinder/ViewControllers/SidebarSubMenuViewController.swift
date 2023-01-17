@@ -98,6 +98,8 @@ class SidebarSubMenuViewController: UITableViewController
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
+        DataManager.getInstance.removeRunningStreams()
+        
         self.delegates.onSubMenuSelected(item: self.groups[indexPath.row], type: self.type)
         self.navigationController?.popViewController(animated: true)
     }
