@@ -95,7 +95,14 @@
 				<if>
 					<equals arg1="${passedSeconds}" arg2="60" /> <!-- Timeout based on 5 seconds' interval -->
 					<then>
-						<echo>Error: Reaches maximum waiting period for the simulator to boot.</echo>
+						<echo>Simulator error: Reaches maximum waiting period for simulator boot.</echo>
+						<echo>##################################</echo>
+						<echo>What you can do next</echo>
+						<echo>##################################</echo>
+						<echo>1. Check if the simulator still starting</echo>
+						<echo>2. Wait until the simulator fully starts and open its home screen</echo>
+						<echo>3. Close the simulator, re-try the Ant build</echo>
+						<echo>4. If the problem still persists report an issue</echo>
 					</then>
 					<else>
 						<sleep seconds="5"/> <!-- Interval of 5 seconds -->
