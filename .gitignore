@@ -1,0 +1,5 @@
+.DS_Store
+*.swp
+
+CamerasAPI/target
+CamerasAPI/nsfs/nsf-moonshine/target
