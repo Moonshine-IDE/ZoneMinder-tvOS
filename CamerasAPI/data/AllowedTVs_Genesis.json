@@ -1,0 +1,95 @@
+{
+    "title": "Import test contact documents",
+    "versionjson": "1.0.0",
+    "steps": [
+        {
+            "title": "--- Import Documents ---",
+            "databases": [
+                {
+                    "action": "update",
+                    "filePath": "Cameras.nsf",
+                    "documents": [
+                        {
+                            "action": "create",
+                            "computeWithForm": true,
+                            "items": {
+                                "Form": "AllowedTV",
+                                "DominoUniversalID": "04CEAC9B48C14757002589170024F422",
+                                "availableCameras": [
+                                    "Camera1",
+                                    "Camera2",
+                                    "Camera3",
+                                    "Camera4",
+                                    "Camera5",
+                                    "Camera6",
+                                    "Camera7",
+                                    "Camera8",
+                                    "Camera9",
+                                    "Camera10",
+                                    "Camera11",
+                                    "Camera12",
+                                    "Camera13",
+                                    "Camera14",
+                                    "Camera15",
+                                    "Camera16",
+                                    "Camera17",
+                                    "Camera18",
+                                    "Camera19"
+                                ],
+                                "tvName": "AppleTV - Devsena",
+                                "ID": "AppleTV01"
+                            }
+                        },
+                        {
+                            "action": "create",
+                            "computeWithForm": true,
+                            "items": {
+                                "Form": "AllowedTV",
+                                "DominoUniversalID": "56FB79B0511580A900258917002502F6",
+                                "availableCameras": [
+                                    "Camera1",
+                                    "Camera2",
+                                    "Camera3",
+                                    "Camera5",
+                                    "Camera6",
+                                    "Camera9",
+                                    "Camera12",
+                                    "Camera13",
+                                    "Camera14",
+                                    "Camera15",
+                                    "Camera16",
+                                    "Camera17"
+                                ],
+                                "tvName": "AppleTV - Devsena Test 1",
+                                "ID": "AppleTV02"
+                            }
+                        },
+                        {
+                            "action": "create",
+                            "computeWithForm": true,
+                            "items": {
+                                "Form": "AllowedTV",
+                                "DominoUniversalID": "E0295189872DE6310025891700251029",
+                                "availableCameras": [
+                                    "Camera1",
+                                    "Camera2",
+                                    "Camera5",
+                                    "Camera6",
+                                    "Camera7",
+                                    "Camera8",
+                                    "Camera9",
+                                    "Camera12",
+                                    "Camera13",
+                                    "Camera14",
+                                    "Camera15"
+                                ],
+                                "tvName": "AppleTV - Devsena Test 2",
+                                "ID": "AppleTV03"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -10,8 +10,8 @@
   <mavenBuild>
     <option commandLine="clean install"/>
     <option dominoNotesPlatform=""/>
-    <option settingsFilePath="/Users/joelanderson/Downloads/MoonshineSDKs/Domino/settings.xml"/>
-    <option mavenBuildPath="/Users/joelanderson/Documents/Flex/workspace/Cameras"/>
+    <option settingsFilePath="%NSFODP_SETTINGS_FILE%"/>
+    <option mavenBuildPath="."/>
     <option dominoNotesProgram=""/>
     <actions>
       <action action="install" actionName="Build"/>
@@ -33,7 +33,7 @@
   </options>
   <domino>
     <option targetServer="demo/DEMO"/>
-    <option localDatabase="/Users/joelanderson/Documents/Flex/workspace/Cameras/nsfs/nsf-moonshine/target/nsf-moonshine-domino-1.0.0.nsf"/>
+    <option localDatabase="./nsfs/nsf-moonshine/target/nsf-moonshine-domino-1.0.0.nsf"/>
     <option targetDatabase="Cameras.nsf"/>
     <option dominoBaseAgentURL="http://127.0.0.1:8080/Cameras.nsf"/>
   </domino>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<form name="AllowedTVs">
+<form name="AllowedTV">
   <actionbar bgcolor="#f0f0f0">
     <actionbuttonstyle bgcolor="#f0f0f0"/>
     <sharedactionref id="1"/>
@@ -10,7 +10,7 @@
   </actionbar>
   <body>
     <richtext>
-      <par>Allowed TVs</par>
+      <par>AllowedTV</par>
       <table>
         <tablerow>
           <tablecell>
@@ -22,7 +22,7 @@
             </par>
           </tablecell>
           <tablecell>
-            <par>AppleTV item ID</par>
+            <par/>
           </tablecell>
         </tablerow>
         <tablerow>
@@ -48,7 +48,7 @@
             </par>
           </tablecell>
           <tablecell>
-            <par>Camera IDs available to the particular TV</par>
+            <par/>
           </tablecell>
         </tablerow>
       </table>

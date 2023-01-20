@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<view name="Allowed TVs" bgcolor="white" headerbgcolor="white" marginbgcolor="white" showmargin="true">
+<view name="AllowedTV" bgcolor="white" headerbgcolor="white" marginbgcolor="white" showmargin="true">
   <code event="selection">
-    <formula>SELECT Form='AllowedTVs'</formula>
+    <formula>SELECT Form='AllowedTV'</formula>
   </code>
   <actionbar bgcolor="#f0f0f0">
     <actionbuttonstyle bgcolor="#f0f0f0"/>
-    <action title="New AllowedTVs" icon="30">
+    <action title="New AllowedTV" icon="30">
       <code event="click">
-        <formula>@Command([Compose]; "AllowedTVs")</formula>
+        <formula>@Command([Compose]; "AllowedTV")</formula>
       </code>
     </action>
     <sharedactionref id="6"/>
@@ -18,10 +18,10 @@
     <sharedactionref id="11"/>
     <sharedactionref id="12"/>
   </actionbar>
-  <column itemname="ID" sort="none" categorized="false" twisties="true" width="30">
+  <column itemname="ID" sort="ascending" categorized="false" twisties="true" width="30">
     <columnheader title="ID"/>
   </column>
-  <column itemname="tvName" sort="ascending" categorized="false" twisties="true" width="30">
+  <column itemname="tvName" sort="none" categorized="false" twisties="true" width="30">
     <columnheader title="Display Name"/>
   </column>
   <column itemname="availableCameras" sort="none" categorized="false" twisties="true" width="30">
