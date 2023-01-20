@@ -12,6 +12,7 @@
 		4A00DD962950406A000D66F6 /* CameraCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DD952950406A000D66F6 /* CameraCollectionViewCell.swift */; };
 		4A00DD9829504169000D66F6 /* MJPEGStreamLib in Resources */ = {isa = PBXBuildFile; fileRef = 4A00DD9729504169000D66F6 /* MJPEGStreamLib */; };
 		4A00DD9B295045BA000D66F6 /* MJPEGStreamLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A00DD9A295045BA000D66F6 /* MJPEGStreamLib.swift */; };
+		4A2570A4297A9C9F002382E1 /* URLDescriptorVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2570A3297A9C9F002382E1 /* URLDescriptorVO.swift */; };
 		4A4B907A2948A6E800CCF938 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4B90792948A6E800CCF938 /* DataManager.swift */; };
 		4A4B907D2948A86E00CCF938 /* TVItemVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4B907C2948A86E00CCF938 /* TVItemVO.swift */; };
 		4A4B907F2948A89B00CCF938 /* CameraItemVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4B907E2948A89B00CCF938 /* CameraItemVO.swift */; };
@@ -57,6 +58,7 @@
 		4A00DD952950406A000D66F6 /* CameraCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCollectionViewCell.swift; sourceTree = "<group>"; };
 		4A00DD9729504169000D66F6 /* MJPEGStreamLib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MJPEGStreamLib; sourceTree = "<group>"; };
 		4A00DD9A295045BA000D66F6 /* MJPEGStreamLib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MJPEGStreamLib.swift; sourceTree = "<group>"; };
+		4A2570A3297A9C9F002382E1 /* URLDescriptorVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLDescriptorVO.swift; sourceTree = "<group>"; };
 		4A4B90792948A6E800CCF938 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		4A4B907C2948A86E00CCF938 /* TVItemVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVItemVO.swift; sourceTree = "<group>"; };
 		4A4B907E2948A89B00CCF938 /* CameraItemVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraItemVO.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				4A4B907C2948A86E00CCF938 /* TVItemVO.swift */,
 				4A4B907E2948A89B00CCF938 /* CameraItemVO.swift */,
 				4AC9641329532FB7000F0EFB /* GroupVO.swift */,
+				4A2570A3297A9C9F002382E1 /* URLDescriptorVO.swift */,
 			);
 			path = ValueObjects;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				4AD9D9422940994200BC1EE8 /* AppDelegate.swift in Sources */,
 				4A4B907F2948A89B00CCF938 /* CameraItemVO.swift in Sources */,
 				4A4B907D2948A86E00CCF938 /* TVItemVO.swift in Sources */,
+				4A2570A4297A9C9F002382E1 /* URLDescriptorVO.swift in Sources */,
 				4A00DD94295039BB000D66F6 /* ListingViewController.swift in Sources */,
 				4AC9640E295325E0000F0EFB /* Constants.swift in Sources */,
 				4AC9641429532FB7000F0EFB /* GroupVO.swift in Sources */,

@@ -52,7 +52,7 @@ extension ListingViewController:UICollectionViewDelegate, UICollectionViewDataSo
         let cell = self.listingCollectionView.dequeueReusableCell(withReuseIdentifier: "cameraListingCell", for: indexPath) as! CameraCollectionViewCell
         
         cell.title = DataManager.getInstance.cameraItemAtIndex(itemAtIndex: indexPath.row).cameraName
-        cell.cameraURL = String.localizedStringWithFormat("https://zm-node-s2-01.prominic.net/zm/cgi-bin/nph-zms?scale=0&mode=jpeg&maxfps=30&monitor=74&user=Prominic&connkey=6838%@", String(indexPath.row))
+        cell.cameraURL = String.localizedStringWithFormat("https://zm-node-s2-01.prominic.net/zm/cgi-bin/nph-zms?scale=0&mode=jpeg&maxfps=30&monitor=74&user=Prominic&pass=PromZM2022&connkey=6838%@", String(indexPath.row))
                 
         return cell
     }

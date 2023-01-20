@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 typealias TVItems = [TVItemVO]
 typealias CameraItems = [CameraItemVO]
@@ -13,6 +14,7 @@ typealias CameraItems = [CameraItemVO]
 @objc protocol TVsDataManagerDelegates: AnyObject
 {
     func dataUpdated()
+    func camerasLoaded()
     @objc optional func dataUpdateFailed(error:String)
     @objc optional func jsonHasReportedError(error:String)
 }
@@ -43,6 +45,7 @@ class DataManager: NSObject
     fileprivate var cameraItemsNonFiltered:CameraItems!
     fileprivate var sidebarRootMenuData:[[Group]]!
     fileprivate var streams = [MJPEGStreamLib]()
+    fileprivate var isCamerasLoading = false
     
     class var getInstance: DataManager
     {
@@ -53,106 +56,142 @@ class DataManager: NSObject
     {
         self.tvItems = [TVItemVO]()
         
+        URLSession.shared.dataTask(with: URL(string: URLDescriptorVO.GET_ALLOWED_TV_LIST)!) { (data, response, err) in
+            
+            if (err != nil)
+            {
+                self.tvsDelegate.dataUpdateFailed!(error: err!.localizedDescription)
+            }
+            else
+            {
+                guard let data = data else { return }
+                do
+                {
+                    let tvsJsonObj = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? Dictionary<String, AnyObject>
+                    
+                    let reportedJSONError = tvsJsonObj!["errorMessage"] as? String
+                    guard reportedJSONError == "" else
+                    {
+                        self.tvsDelegate.dataUpdateFailed!(error: reportedJSONError!)
+                        return
+                    }
+                    
+                    if let results = tvsJsonObj!["documents"] as? [AnyObject]
+                    {
+                        var tvItem:TVItemVO!
+                        for obj in results
+                        {
+                            tvItem = TVItemVO(
+                                name: obj["tvName"] as? String,
+                                ID: obj["ID"] as? String,
+                                dominoUniversalID: obj["DominoUniversalID"] as? String,
+                                cameras: obj["availableCameras"] as? [String]
+                            )
+                            
+                            self.tvItems.append(tvItem)
+                        }
+                        
+                        self.sortTVs()
+                    }
+                    
+                    if self.tvsDelegate != nil
+                    {
+                        DispatchQueue.main.async {
+                            self.tvsDelegate.dataUpdated()
+                        }
+                    }
+                    
+                } catch _
+                {
+                    self.tvsDelegate.dataUpdateFailed!(error: "JSON conversion failed! You can contact to the Administrator, or wait until a reload.")
+                }
+            }
+            
+        }.resume()
+        
         // local resource
+        /*
         if let localAllowedTVFile = Bundle.main.path(forResource: "AllowedTVs", ofType: "json")
         {
             guard let allowedTVsContent = NSData(contentsOfFile: localAllowedTVFile) else { return }
             do
             {
                 let tvsJsonObj = try JSONSerialization.jsonObject(with: allowedTVsContent as Data, options: .allowFragments) as? Dictionary<String, AnyObject>
-                
-                if let reportedJSONError = tvsJsonObj!["errorMessage"] as? String
-                {
-                    //self.jsonData.reportedError = reportedJSONError
-                }
-                
-                if let results = tvsJsonObj!["documents"] as? [AnyObject]
-                {
-                    var tvItem:TVItemVO!
-                    for obj in results
-                    {
-                        tvItem = TVItemVO(
-                            name: obj["tvName"] as? String,
-                            ID: obj["ID"] as? String,
-                            dominoUniversalID: obj["DominoUniversalID"] as? String,
-                            cameras: obj["availableCameras"] as? [String]
-                        )
-                        
-                        self.tvItems.append(tvItem)
-                    }
-                    
-                    //self.sortTVs()
-                }
-                
-                if self.tvsDelegate != nil
-                {
-                    DispatchQueue.main.async {
-                        self.tvsDelegate.dataUpdated()
-                    }
-                }
+                // parsing..
             }
             catch _
             {
                 self.tvsDelegate.dataUpdateFailed!(error: "JSON conversion failed! You can contact to the Administrator, or wait until a reload.")
             }
         }
+        */
     }
     
     func requestCamerasData()
     {
         self.cameraItems = [CameraItemVO]()
         self.groups = [Group]()
+        self.isCamerasLoading = true
         
-        // local resource
-        if let localCameraFile = Bundle.main.path(forResource: "Cameras", ofType: "json")
-        {
-            guard let camerasContent = NSData(contentsOfFile: localCameraFile) else { return }
-            do
+        URLSession.shared.dataTask(with: URL(string: URLDescriptorVO.GET_CAMERA_LIST)!) { (data, response, err) in
+            
+            if (err != nil)
             {
-                let camerasJsonObj = try JSONSerialization.jsonObject(with: camerasContent as Data, options: .allowFragments) as? Dictionary<String, AnyObject>
-                
-                if let reportedJSONError = camerasJsonObj!["errorMessage"] as? String
+                self.camerasDelegate.dataUpdateFailed!(error: err!.localizedDescription)
+            }
+            else
+            {
+                guard let data = data else { return }
+                do
                 {
-                    //self.jsonData.reportedError = reportedJSONError
-                }
-                
-                // create default menu options
-                self.generateDefaultMenus()
-                
-                if let results = camerasJsonObj!["documents"] as? [AnyObject]
-                {
-                    var cameraItem:CameraItemVO!
-                    for obj in results
+                    let camerasJsonObj = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? Dictionary<String, AnyObject>
+                    
+                    let reportedJSONError = camerasJsonObj!["errorMessage"] as? String
+                    guard reportedJSONError == "" else
                     {
-                        cameraItem = CameraItemVO(
-                            dominoUniversalID: obj["DominoUniversalID"] as? String,
-                            cameraID: obj["CameraID"] as? String,
-                            cameraName: obj["Name"] as? String,
-                            url: obj["URL"] as? String,
-                            frequency: Int((obj["Frequency"] as? String)!),
-                            group: obj["Group"] as? String,
-                            subGroup: obj["SubGroup"] as? String
-                        )
-                        
-                        cameraItem.isStop = false
-                        self.cameraItems.append(cameraItem)
-                        self.parseGroupSubgroups(cameraItem: cameraItem)
+                        self.camerasDelegate.dataUpdateFailed!(error: reportedJSONError!)
+                        return
                     }
                     
-                    // 1st filter - by allowed cameras to presently selcted tv
-                    self.filterCamerasByAllowedTV()
+                    // create default menu options
+                    self.generateDefaultMenus()
                     
-                    self.rebuildSidebarMenu(group: self.groups[0], subGroup: self.groups[0].subGroups[0])
+                    if let results = camerasJsonObj!["documents"] as? [AnyObject]
+                    {
+                        var cameraItem:CameraItemVO!
+                        for obj in results
+                        {
+                            cameraItem = CameraItemVO(
+                                dominoUniversalID: obj["DominoUniversalID"] as? String,
+                                cameraID: obj["CameraID"] as? String,
+                                cameraName: obj["Name"] as? String,
+                                url: obj["URL"] as? String,
+                                frequency: Int((obj["Frequency"] as? String)!),
+                                group: obj["Group"] as? String,
+                                subGroup: obj["SubGroup"] as? String
+                            )
+                            
+                            cameraItem.isStop = false
+                            self.cameraItems.append(cameraItem)
+                            self.parseGroupSubgroups(cameraItem: cameraItem)
+                        }
+                        
+                        // 1st filter - by allowed cameras to presently selcted tv
+                        self.filterCamerasByAllowedTV()
+                        
+                        self.rebuildSidebarMenu(group: self.groups[0], subGroup: self.groups[0].subGroups[0])
+                        
+                        // 2nd filter - by grouop/subgroup
+                        self.filterCamerasByGroupSubGroups()
+                    }
                     
-                    // 2nd filter - by grouop/subgroup
-                    self.filterCamerasByGroupSubGroups()
+                } catch _
+                {
+                    self.camerasDelegate.dataUpdateFailed!(error: "JSON conversion failed! You can contact to the Administrator, or wait until a reload.")
                 }
             }
-            catch _
-            {
-                self.camerasDelegate.dataUpdateFailed!(error: "JSON conversion failed! You can contact to the Administrator, or wait until a reload.")
-            }
-        }
+            
+        }.resume()
     }
     
     func sortTVs()
@@ -246,11 +285,19 @@ class DataManager: NSObject
         }
         
         self.sortCameras()
-    
-        if self.camerasDelegate != nil
+        DispatchQueue.main.async
         {
-            DispatchQueue.main.async {
-                self.camerasDelegate.dataUpdated()
+            if self.isCamerasLoading
+            {
+                self.tvsDelegate.camerasLoaded()
+                self.isCamerasLoading = false
+            }
+            
+            if self.camerasDelegate != nil
+            {
+                DispatchQueue.main.async {
+                    self.camerasDelegate.dataUpdated()
+                }
             }
         }
     }
@@ -340,7 +387,7 @@ class DataManager: NSObject
     
     func sidebarRootMenuItems() -> [[Group]]
     {
-        return self.sidebarRootMenuData
+        return self.sidebarRootMenuData != nil ? self.sidebarRootMenuData : [[]]
     }
     
     func numberOfGroupInList() -> Int

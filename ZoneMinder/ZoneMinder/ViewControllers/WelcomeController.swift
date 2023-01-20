@@ -92,7 +92,6 @@ extension WelcomeController: UITableViewDelegate, UITableViewDataSource
     {
         Constants.selectedTV = self.dataManager.tvItemAtIndex(itemAtIndex: indexPath.row)
         DataManager.getInstance.requestCamerasData()
-        present(UIStoryboard.contentViewController()!, animated: false)
     }
     
     func indexPathForPreferredFocusedView(in tableView: UITableView) -> IndexPath?
@@ -118,5 +117,10 @@ extension WelcomeController:TVsDataManagerDelegates
                 self.updateSpinnerView(show: false)
             }
         }
+    }
+    
+    func camerasLoaded()
+    {
+        self.present(UIStoryboard.contentViewController()!, animated: false)
     }
 }
