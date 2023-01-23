@@ -49,11 +49,30 @@
 			<arg value="-c"/>
 			<arg value="${XCRUN_EXEC} simctl list devices available | grep '${SIMULATOR}' | head -n 1 | sed 's/.*(\([^)]*\)) ([^)]*) *$/\1/'"/>
 		</exec>
+		<if>
+			<equals arg1="${targetDeviceUDID}" arg2="" />
+			<then>
+				<var name="targetDeviceUDID" unset="true"/>
+				<echo>Installing tvOS simulator: ${SIMULATOR}</echo>
+				<exec executable="bash" failonerror="true" outputproperty="targetDeviceUDID">
+					<arg value="-c"/>
+					<arg value="${XCRUN_EXEC} simctl create '${SIMULATOR}' '${SIMULATOR}'  2>&amp;1 | grep -i -v 'No runtime specified'"/>
+				</exec>
+			</then>
+		</if>
 		<echo>Target device UDID: ${targetDeviceUDID}</echo>
 	</target>
 	
 	<!-- Builds the app and boot the simulator -->
 	<target name="BuildAndRunSimulator" depends="RetrieveInitialDetails">
+		<!-- In case no UDID is available, do not continue.
+			Exit process. -->
+		<fail message="Simulator error: No simulator found to process with. Terminating process.">
+		    <condition>
+        		<equals arg1="${targetDeviceUDID}" arg2=""/>
+		    </condition>
+		</fail>
+		
 		<exec executable="bash" failonerror="true">
 			<arg value="-c"/>
 			<arg value="${XCODEBUILD_EXEC} clean build -scheme ${APP_NAME} -project ${APP_NAME}.xcodeproj -destination 'id=${targetDeviceUDID}'"/>
